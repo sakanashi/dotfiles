@@ -2,6 +2,9 @@
 
 set -ex 
 
+ln -s .emacs.d/ ~/.emacs.d
+
+mkdir -p ~/local/src
 cd ~/local/src/
 
 # sudo yum install xz -y
@@ -18,3 +21,9 @@ cd emacs-${ver}/
 ./configure --prefix=$HOME/local --without-x
 make
 make install
+
+# after step
+# 1. path
+# export PATH=$HOME/local/bin:$PATH
+# export PATH=$PATH:$HOME/.cask/bin
+# 2. install cask 
