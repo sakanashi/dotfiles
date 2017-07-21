@@ -1,10 +1,12 @@
 ;; packages http://catcher-in-the-tech.net/55/
-(require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+;;(require 'package)
+;; (add-to-list 'package-archives
+;; 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; (add-to-list 'package-archives
+;; 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
 ;; color theme
 ;(add-to-list 'load-path "./color-theme-6.6.0")
