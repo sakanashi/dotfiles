@@ -49,6 +49,8 @@
 ;; C-x 3 で自動的にfollow-modeにする
 (global-set-key "\C-x3" 'follow-delete-other-windows-and-split)
 
+(global-set-key "\C-m" 'newline-and-indent)
+(electric-pair-mode 1)
 
 ;;(require 'undo-tree)
 ;;(global-undo-tree-mode t)
