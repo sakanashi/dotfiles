@@ -58,3 +58,11 @@
 ;;(require 'web-mode)
 ;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
+
+;(add-to-list 'load-path "~/.emacs.d/lisp/")
+;(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.dig$" . yaml-mode))
+(add-hook 'yaml-mode-hook
+          '(lambda () (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
