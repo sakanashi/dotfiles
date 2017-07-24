@@ -52,6 +52,16 @@
 (global-set-key "\C-m" 'newline-and-indent)
 (electric-pair-mode 1)
 
+(set-language-environment 'Japanese)
+(prefer-coding-system 'utf-8)
+
+;language
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+;; (setq default-buffer-file-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+
 ;;(require 'undo-tree)
 ;;(global-undo-tree-mode t)
 ;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
