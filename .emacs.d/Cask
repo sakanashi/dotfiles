@@ -2,12 +2,19 @@
 (source melpa)
 (source marmalade)
 (depends-on "flycheck")
+(depends-on "highlight-symbol")
 
 ;; modes
 (depends-on "dockerfile-mode")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "groovy-mode")
+(depends-on "js2-mode")
+(depends-on "json-mode")
 (depends-on "markdown-mode")
+(depends-on "prettier-js")
 (depends-on "ruby-mode")
+(depends-on "sass-mode")
+(depends-on "scss-mode")
 (depends-on "yaml-mode")
+
