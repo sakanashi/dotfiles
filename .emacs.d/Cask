@@ -3,6 +3,8 @@
 (source marmalade)
 (depends-on "flycheck")
 (depends-on "highlight-symbol")
+(depends-on "tss")
+(depends-on "tide")
 
 ;; modes
 (depends-on "dockerfile-mode")
@@ -14,6 +16,7 @@
 (depends-on "markdown-mode")
 (depends-on "prettier-js")
 (depends-on "ruby-mode")
+(depends-on "typescript-mode")
 (depends-on "sass-mode")
 (depends-on "scss-mode")
 (depends-on "yaml-mode")
