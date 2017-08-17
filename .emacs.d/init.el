@@ -52,6 +52,13 @@
 (global-set-key "\C-m" 'newline-and-indent)
 (electric-pair-mode 1)
 
+;; ==================================================
+;; Indent
+;; ==================================================
+(setq c-default-style '((java-mode . "java") (other . "linux")))
+(setq-default tab-width 2 indent-tabs-mode nil)
+(setq c-basic-offset 2)
+
 (set-language-environment 'Japanese)
 (prefer-coding-system 'utf-8)
 
