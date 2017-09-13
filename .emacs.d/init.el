@@ -1,36 +1,14 @@
-;; packages http://catcher-in-the-tech.net/55/
-;;(require 'package)
-;; (add-to-list 'package-archives
-;; 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; (add-to-list 'package-archives
-;; 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
-
-;; color theme
-;(add-to-list 'load-path "./color-theme-6.6.0")
-;(require 'color-theme)
-;;(eval-after-load "color-theme"
- ;; '(progn
-   ;;  (color-theme-initialize)
-    ;; (color-theme-solarized))
-
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/solarized/emacs-color-solarized")
-;(load-theme 'emacs-colors-solarized.el t)
-
-;;(require 'color-theme-solarized)
-;;(color-theme-solarized)
-;;(require 'zenburn)
-
 
 ;; バッファ内の表示
 ;;行番号を常に表示
 (global-linum-mode t)
 ;; 行番号の見た目
 (set-face-attribute 'linum nil
-		    :foreground "eee8d5"
-		    :height 0.9)
+                    :foreground "eee8d5"
+                    :height 0.9)
 ;; 行番号の後ろにスペース
 (setq linum-format "%4d| ")
 ;; 現在行と桁をハイライト
@@ -56,18 +34,49 @@
 ;; Indent
 ;; ==================================================
 (setq c-default-style '((java-mode . "java") (other . "linux")))
-(setq-default tab-width 2 indent-tabs-mode nil)
-(setq c-basic-offset 2)
+;(setq-default tab-width 2 indent-tabs-mode nil)
+;(setq c-basic-offset 2)
 
+;; インデントでタブを使わない
+(setq-default indent-tabs-mode nil)
+
+;; タブ, 全角スペース表示
+(setq whitespace-style
+                  '(tabs tab-mark spaces space-mark))
+(setq whitespace-space-regexp "\\(\x3000+\\)")
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□]
+                    )(tab-mark   ?\t   [?\xBB ?\t])
+                     ))
+(require 'whitespace)
+(global-whitespace-mode 1)
+(set-face-foreground 'whitespace-space "LightSlateGray")
+(set-face-background 'whitespace-space "DarkSlateGray")
+(set-face-foreground 'whitespace-tab "LightSlateGray")
+(set-face-background 'whitespace-tab "DarkSlateGray")
+
+;; 行末空白表示
+(defface my-face '((t (:background "DarkSlateGray"))) nil)
+(defvar my-face 'my-face)
+(defadvice font-lock-mode (before my-font-lock-mode ())
+     (font-lock-add-keywords
+           major-mode
+                 '(("[ \t]+$" 0 my-face append))))
+(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+(ad-activate 'font-lock-mode)
+
+;; ==================================================
+;; language
+;; ==================================================
 (set-language-environment 'Japanese)
 (prefer-coding-system 'utf-8)
 
-;language
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
 ;; (setq default-buffer-file-coding-system 'utf-8)
 (setq buffer-file-coding-system 'utf-8)
+
 
 ;;(require 'undo-tree)
 ;;(global-undo-tree-mode t)
