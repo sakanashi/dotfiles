@@ -17,6 +17,8 @@
 (depends-on "markdown-mode")
 (depends-on "prettier-js")
 (depends-on "ruby-mode")
+(depends-on "ruby-end")
+(depends-on "ruby-block")
 (depends-on "typescript-mode")
 (depends-on "sass-mode")
 (depends-on "scss-mode")
