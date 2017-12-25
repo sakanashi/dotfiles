@@ -95,3 +95,4 @@
 (add-hook 'yaml-mode-hook
           '(lambda () (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
+(add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
