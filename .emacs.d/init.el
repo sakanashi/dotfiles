@@ -65,6 +65,14 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 
+;; --------------------------------------------------
+;; ruby-block
+;; endにカーソルを合わせると、そのendに対応する行をハイライトする
+;; --------------------------------------------------
+(require 'ruby-block)
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
+
 ;; ==================================================
 ;; language
 ;; ==================================================
