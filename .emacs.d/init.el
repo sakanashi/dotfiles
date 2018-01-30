@@ -22,6 +22,8 @@
 ;; filename<dir> 形式のバッファ名にする
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; バッファの操作に関する設定
+(setq x-select-enable-clipboard t)
+
 ;; "C-t" でウインドウを切り替える
 (define-key global-map (kbd "C-t") 'other-window)
 ;; C-x 3 で自動的にfollow-modeにする
@@ -65,19 +67,10 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 
-;; --------------------------------------------------
-;; ruby-block
-;; endにカーソルを合わせると、そのendに対応する行をハイライトする
-;; --------------------------------------------------
-;(require 'ruby-block)
-;(ruby-block-mode t)
-;(setq ruby-block-highlight-toggle t)
-
 ;; ==================================================
 ;; language
 ;; ==================================================
-(set-language-environment 'Japanese)
-(prefer-coding-system 'utf-8)
+(set-language-environment 'Japanese)(prefer-coding-system 'utf-8)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -104,3 +97,47 @@
           '(lambda () (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
+
+;(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
+; ==============
+; ruby indent setting (https://qiita.com/hiconyan/items/582e27128decfe9d249e)
+; なんか動かないので保留
+; =============
+;; (autoload 'ruby-mode "ruby-mode")
+;; (autoload 'ruby-electric-mode "ruby-electric")
+;; (global-set-key (kbd "C-c r b") 'ruby-mode)
+;; (add-to-list 'auto-mode-alist '("\\.rb$" ruby-mode))
+;; (setq ruby-deep-indent-paren-style nil)
+;; (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+;; (add-hook-fn 'ruby-mode-hook
+;;              (ruby-electric-mode)
+;;              (setq ruby-indent-level 2)
+;;              (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent))
+;; (defadvice ruby-indent-line (after unindent-closing-paren activate)
+;;   (let ((column (current-column))
+;;         indent offset)
+;;     (save-excursion
+;;       (back-to-indentation)
+;;       (let ((state (syntax-ppss)))
+;;         (setq offset (- column (current-column)))
+;;         (when (and (eq (char-after) ?\))
+;;                    (not (zerop (car state))))
+;;           (goto-char (cadr state))
+;;           (setq indent (current-indentation)))))
+;;     (when indent
+;;       (indent-line-to indent)
+;;       (when (> offset 0) (forward-char offset)))))
+
+;; fly-check
+(autoload 'flycheck-mode "flycheck")
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+
+;; ruby-block.el --- highlight matching block
+(require 'ruby-block)
+(ruby-block-mode t)
+(setq ruby-block-highlight-toggle t)
+;; highlight end
+(require 'ruby-end)
