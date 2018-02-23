@@ -1,6 +1,8 @@
 #! /bin/bash
 set -ex
 
+echo 'Start install emacs24.3'
+
 if [ -e ~/.emacs ]; then
    rm ~/.emacs
 fi
@@ -18,6 +20,8 @@ cd emacs-${ver}/
 ./configure --prefix=$HOME/local --without-x
 make
 make install
+
+echo 'Succeeded.'
 
 # after step
 # 1. path
