@@ -1,0 +1,15 @@
+[user]
+  email = ryuutaroh.sakanashi@nts.ricoh.co.jp
+  name = sakanashi
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  precomposeunicode = true
+  quotepath = false
+#  excludesfile = /Users/ryusakanashi/.gitignore_global
+  whitespace = cr-at-eol
+  autocrlf = false
+[alias]
+  graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
