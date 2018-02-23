@@ -1,5 +1,6 @@
-set -ex 
+#!/bin/bash
+set -ex
 cd ~/local/
-mkdir -p casc
-cd casc
+mkdir -p cask
+cd cask
 curl -fsSkL https://raw.github.com/cask/cask/master/go | python
