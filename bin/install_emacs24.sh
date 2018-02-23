@@ -1,6 +1,10 @@
 #! /bin/bash
 set -ex
 
+if [ -e ~/.emacs ]; then
+   rm ~/.emacs
+fi
+
 mkdir -p ~/local/src
 cd ~/local/src/
 
