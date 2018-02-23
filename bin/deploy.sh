@@ -1,5 +1,5 @@
 #!/bin/bash
-# set symbolic linc
+# set symbolic link
 set -u
 
 THIS_DIR=$(cd $(dirname $0); pwd)
@@ -18,6 +18,6 @@ done
 
 cat << END
 
-dotfiles setup finished.
+succeeded.
 
 END
