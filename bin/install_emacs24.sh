@@ -1,12 +1,6 @@
 #! /bin/bash
 set -ex
 
-# cd $(cd $(dirname $0); pwd)/..
-# EMACS_CONF_DIR=$(pwd)
-# ls -a ~/.emacs.d;  rm -r ~/.emacs.d
-# cd ~
-# ln -s $EMACS_CONF_DIR/.emacs.d
-
 mkdir -p ~/local/src
 cd ~/local/src/
 

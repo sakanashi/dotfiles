@@ -2,9 +2,7 @@
 # set symbolic link
 set -u
 
-THIS_DIR=$(cd $(dirname $0); pwd)
-
-cd $THIS_DIR
+DOTFILES_DIR=$(cd $(dirname $0)/..; pwd)
 
 echo "start setup..."
 for f in .??*; do
