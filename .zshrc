@@ -43,7 +43,7 @@ case "${OSTYPE}" in
 #         PROMPT="%F{cyan}%n:%f%F{green}$(echo '\w' | sed -e "/^.\{30,\}$/s/^\(.\{15\}\).*\(.\{15\}\)$/\1...\2/")%f $ "
         ;;
     linux*)
-        PROMPT='%F{cyan}%n@$(echo $HOSTNAME | cut -d . -f1):%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+        PROMPT='%F{cyan}%B[%n@$(echo $HOSTNAME | cut -d . -f1)]:%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
         ;;
 esac
 
