@@ -9,6 +9,7 @@ for f in .??*; do
     [ "$f" = ".git" ] && continue
     [ "$f" = ".gitconfig.local.template" ] && continue
     [ "$f" = ".gitmodules" ] && continue
+    [ "$f" = ".gitignore" ] && continue
     [ "$f" = .*~ ] && continue
     ln -snfv $DOTFILES_DIR/"$f" ~/
 done
