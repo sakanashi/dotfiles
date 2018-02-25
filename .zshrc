@@ -39,11 +39,13 @@ setopt prompt_subst
 RPROMPT=''
 case "${OSTYPE}" in
     darwin*)
-        PROMPT='%F{cyan}%n:%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+        PROMPT='
+%F{cyan}%n:%f%F{green}%~%f:`rprompt-git-current-branch` $ '
 #         PROMPT="%F{cyan}%n:%f%F{green}$(echo '\w' | sed -e "/^.\{30,\}$/s/^\(.\{15\}\).*\(.\{15\}\)$/\1...\2/")%f $ "
         ;;
     linux*)
-        PROMPT='%F{cyan}%B[%n@$(echo $HOSTNAME | cut -d . -f1)]:%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+        PROMPT='
+%n%F{cyan}%B[%n@$(echo $HOSTNAME | cut -d . -f1)]:%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
         ;;
 esac
 
