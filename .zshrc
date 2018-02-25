@@ -81,7 +81,7 @@ fi
 case "${OSTYPE}" in
     darwin*)
         alias ls="ls -G"
-        alias ll="ls -hG"
+        alias ll="ls -lhG"
         alias la="ls -lhaG"
         ;;
     linux*)
