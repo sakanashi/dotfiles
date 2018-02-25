@@ -1,6 +1,13 @@
 (package-initialize)
 (require 'cask "~/.cask/cask.el")
+;(require 'cask)
 (cask-initialize)
+
+;; anzu
+(global-anzu-mode t)
+(setq anzu-search-threshold 1000)
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 
 ;; バッファ内の表示
 ;;行番号を常に表示
@@ -141,3 +148,13 @@
 (setq ruby-block-highlight-toggle t)
 ;; highlight end
 (require 'ruby-end)
+
+;;; theme ;;;
+(set-face-background 'linum "#2f2f2f")
+(custom-set-variables
+ )
+(custom-set-faces
+ '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
+ '(font-lock-comment-face ((t (:foreground "color-226" :slant italic))))
+ '(font-lock-string-face ((t (:foreground "green"))))
+ '(font-lock-variable-name-face ((t (:foreground "yellow")))))

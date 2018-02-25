@@ -10,7 +10,7 @@ for f in .??*; do
     [ "$f" = ".gitconfig.local.template" ] && continue
     [ "$f" = ".gitmodules" ] && continue
     [ "$f" = .*~ ] && continue
-    ln -snfv ~/dotfiles/"$f" ~/
+    ln -snfv $DOTFILES_DIR/"$f" ~/
 done
 
 # [ -e ~/.gitconfig.local ] || cp ~/dotfiles/.gitconfig.local.template ~/.gitconfig.local
