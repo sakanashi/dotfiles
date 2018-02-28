@@ -45,7 +45,8 @@ case "${OSTYPE}" in
         ;;
     linux*)
         PROMPT='
-%n%F{cyan}%B[%n@$(echo $HOSTNAME | cut -d . -f1)]:%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+# PROMPT="%{%(?.$fg[cyan].$fg[green])%}%B[%n@%m$VPC_ENV_TMP]%#%{$reset_color%}%b "
         ;;
 esac
 
