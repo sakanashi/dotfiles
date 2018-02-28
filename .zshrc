@@ -46,7 +46,6 @@ case "${OSTYPE}" in
     linux*)
         PROMPT='
 %F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
-# PROMPT="%{%(?.$fg[cyan].$fg[green])%}%B[%n@%m$VPC_ENV_TMP]%#%{$reset_color%}%b "
         ;;
 esac
 
@@ -66,11 +65,18 @@ autoload history-search-end
 #[[ -f ~/.dir_colors ]] && eval $(dircolors -b ~/.dir_colors)
 #zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-if [ -f ~/.dir_colors ]; then
+# if [ -f ~/.dir_colors ]; then
+#     if type dircolors > /dev/null 2>&1; then
+#         eval $(dircolors ~/.dir_colors)
+#     elif type gdircolors > /dev/null 2>&1; then
+#         eval $(gdircolors ~/.dir_colors)
+#     fi
+# fi
+if [ -f ~/.dircolors.ansi-dark ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/.dir_colors)
+        eval $(dircolors ~/.dircolors.ansi-dark)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/.dir_colors)
+        eval $(gdircolors ~/.dircolors.ansi-dark)
     fi
 fi
 
@@ -83,14 +89,17 @@ fi
 
 case "${OSTYPE}" in
     darwin*)
-        alias ls="ls -G"
-        alias ll="ls -lhG"
-        alias la="ls -lhaG"
+        # alias ls="ls -G"
+        # alias ll="ls -lhG"
+        # alias la="ls -lhaG"
+        alias ls="gls --color=auto"
+        alias ll="gls -lh --color=auto"
+        alias la="gls -lha --color=auto"
         ;;
     linux*)
-        alias ls='ls --color'
-        alias ll='ls -lh --color'
-        alias la='ls -lha --color'
+        alias ls='ls --color=auto'
+        alias ll='ls -lh --color=auto'
+        alias la='ls -lha --color=auto'
         ;;
 esac
 
