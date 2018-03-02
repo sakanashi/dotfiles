@@ -19,5 +19,6 @@ done
 cat << END
 
 succeeded.
+next: source ~/.zshrc
 
 END
