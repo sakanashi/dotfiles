@@ -1,5 +1,6 @@
 autoload -U compinit
 compinit
+autoload -U colors; colors
 
 ### envs ###
 export LANG=ja_JP.UTF-8
@@ -9,30 +10,30 @@ export OUTPUT_CHARSET=utf-8
 # export GREP_OPTIONS="--binary-files=without-match --color=auto"
 
 ### prompt ###
-# ブランチ名を色付きで表示させるメソッド
-function rprompt-git-current-branch {
-  local branch_name st branch_status
+function prompt-git-current-branch {
+  local name st color
 
-  if [ ! -e  ".git" ]; then
-    return
+  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+      return
   fi
-  branch_name=`git rev-parse --abbrev-ref HEAD 2> /dev/null`
+  name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+  if [[ -z $name ]]; then
+      return
+  fi
   st=`git status 2> /dev/null`
   if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-    branch_status="%F{green}"
-  elif [[ -n `echo "$st" | grep "^Untracked files"` ]]; then
-    branch_status="%F{red}?"
-  elif [[ -n `echo "$st" | grep "^Changes not staged for commit"` ]]; then
-    branch_status="%F{red}+"
-  elif [[ -n `echo "$st" | grep "^Changes to be committed"` ]]; then
-    branch_status="%F{yellow}!"
-  elif [[ -n `echo "$st" | grep "^rebase in progress"` ]]; then
-    echo "%F{red}!(no branch)"
-    return
+      color=${fg[green]}
+  elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
+      color=${fg[yellow]}
+  elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
+      color=${fg_bold[red]}
   else
-    branch_status="%F{blue}"
+      color=${fg[red]}
   fi
-  echo "${branch_status}[$branch_name]%f"
+
+  # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
+  # これをしないと右プロンプトの位置がずれる
+  echo "%{$color%}$name%{$reset_color%} "
 }
 
 setopt prompt_subst
@@ -40,12 +41,11 @@ RPROMPT=''
 case "${OSTYPE}" in
     darwin*)
         PROMPT='
-%F{cyan}%n:%f%F{green}%~%f:`rprompt-git-current-branch` $ '
-#         PROMPT="%F{cyan}%n:%f%F{green}$(echo '\w' | sed -e "/^.\{30,\}$/s/^\(.\{15\}\).*\(.\{15\}\)$/\1...\2/")%f $ "
+%F{cyan}%n:%f%F{green}%~%f:`prompt-git-current-branch` $ '
         ;;
     linux*)
         PROMPT='
-%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f:`rprompt-git-current-branch` $ '
+%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f:`prompt-git-current-branch` $ '
         ;;
 esac
 
