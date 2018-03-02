@@ -33,19 +33,19 @@ function prompt-git-current-branch {
 
   # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
   # これをしないと右プロンプトの位置がずれる
-  echo "%{$color%}$name%{$reset_color%} "
+  echo "%{$color%}[$name]%{$reset_color%} "
 }
 
 setopt prompt_subst
 RPROMPT=''
 case "${OSTYPE}" in
     darwin*)
-        PROMPT='
-%F{cyan}%n:%f%F{green}%~%f:`prompt-git-current-branch` $ '
+        PROMPT='%F{cyan}%n:%f%F{green}%~%f: $ '
+        RPROMPT='`prompt-git-current-branch`'
         ;;
     linux*)
-        PROMPT='
-%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f:`prompt-git-current-branch` $ '
+        PROMPT='%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f $ '
+        RPROMPT='`prompt-git-current-branch`'
         ;;
 esac
 
