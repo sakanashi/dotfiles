@@ -40,11 +40,13 @@ setopt prompt_subst
 RPROMPT=''
 case "${OSTYPE}" in
     darwin*)
-        PROMPT='%F{cyan}%n:%f%F{green}%~%f: $ '
+        PROMPT='
+%F{cyan}%n:%f%F{green}%~%f: $ '
         RPROMPT='`prompt-git-current-branch`'
         ;;
     linux*)
-        PROMPT='%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f $ '
+        PROMPT='
+%F{cyan}%B[%n@%m$VPC_ENV_TMP]%b%f%F{green}%~%f $ '
         RPROMPT='`prompt-git-current-branch`'
         ;;
 esac
