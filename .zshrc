@@ -118,3 +118,13 @@ alias less='less -qR'
 # if [[ -x `which colordiff` ]]; then
 #       alias diff='colordiff'
 # fi
+
+### ssh agent ###
+eval `ssh-agent`
+ssh-add ~/.ssh/id_git_mac_rsa
+ssh-add ~/.ssh/id_rsa_aws_sakanashi
+
+### rbenv ###
+[[ -d ~/.rbenv  ]] && \
+    export PATH=${HOME}/.rbenv/bin:${PATH} && \
+    eval "$(rbenv init -)"
