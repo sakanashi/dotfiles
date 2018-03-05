@@ -33,7 +33,7 @@ function prompt-git-current-branch {
 
   # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
   # これをしないと右プロンプトの位置がずれる
-  echo "%{$color%}[$name]%{$reset_color%} "
+  echo "%{$color%}[$name]%{$reset_color%}"
 }
 
 setopt prompt_subst
