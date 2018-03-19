@@ -76,9 +76,9 @@ autoload history-search-end
 # fi
 if [ -f ~/.dircolors.ansi-dark ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/.dircolors.ansi-dark)
+        eval $(dircolors ~/.dir_colors)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/.dircolors.ansi-dark)
+        eval $(gdircolors ~/.dir_colors)
     fi
 fi
 
