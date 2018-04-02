@@ -107,6 +107,7 @@ esac
 
 export PATH=$HOME/local/bin:$PATH
 export PATH=$PATH:$HOME/.cask/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 # export PATH=$HOME/local/bin/gradle-2.14.1/bin:$PATH
 # export PATH=$HOME/.rbenv/shims:$PATH
 # export PATH=$PATH:/opt/yarn-[version]/bin
