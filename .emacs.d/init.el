@@ -155,6 +155,6 @@
  )
 (custom-set-faces
  '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(font-lock-comment-face ((t (:foreground "color-226" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "cyan" :slant italic))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "yellow")))))
