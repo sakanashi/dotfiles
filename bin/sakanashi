@@ -26,9 +26,11 @@ start (){
     else
         echo "start from docker image ${IMAGE}"
         docker run --name ${CONTAINER} -itd --rm=true \
-        -v $(pwd):/home/sakanashi \
-        -u $(id -u):$(id -g) \
-        ${IMAGE_ID} sh
+            -e "HOME=$HOME" \
+            -v $HOME:$HOME \
+            -u $(id -u):$(id -g) \
+            -w $HOME \
+            ${IMAGE_ID} sh
     fi
     echo "${CONTAINER} container is started successfully!"
 }
@@ -40,10 +42,11 @@ restart (){
 
 console (){
         docker run --name ${CONTAINER} -it --rm=true \
-        -v $(pwd):/home/sakanashi \
-        -u $(id -u):$(id -g) \
-        -w /home/sakanashi \
-        ${IMAGE_ID} sh
+            -e "HOME=$HOME" \
+            -v $HOME:$HOME \
+            -u $(id -u):$(id -g) \
+            -w $HOME \
+            ${IMAGE_ID} sh
 }
 
 stop (){

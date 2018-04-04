@@ -7,21 +7,22 @@ RUN apk --update --no-cache add \
      gcc \
      git \
      groff \
+     less \
+     libffi-dev \
      libstdc++ \
+     libxml2-dev \
+     libxslt-dev \
      make \
      mysql-client \
      ncurses \
-     libxml2-dev \
-     libxslt-dev \
-     libffi-dev \
-     zip \
-     tree \
-     python \
      openssl \
+     python \
      ruby \
      ruby-bundler \
      ruby-dev \
+     ruby-irb \
      ruby-rdoc \
-     ruby-irb && \
+     tree \
+     zip && \
    wget https://bootstrap.pypa.io/ez_setup.py -O - | python && \
    easy_install awscli s3cmd
