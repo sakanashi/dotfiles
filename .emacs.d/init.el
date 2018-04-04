@@ -91,7 +91,7 @@
 ;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
 
 
-;;(require 'web-mode)
+;;(require 'web-mode) 
 ;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 
