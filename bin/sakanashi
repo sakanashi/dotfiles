@@ -1,0 +1,127 @@
+#!/usr/bin/bash
+
+set -eu
+
+if [ $# -lt 1 ]; then
+  echo "Usage: sakanashi {build|start|restart|console|stop|clean|remove|status}"
+  exit 1
+fi
+
+IMAGE="sakanashi-console"
+CONTAINER="sakanashi-console"
+IMAGE_ID=$(docker images | grep "^${IMAGE}" | tr -s " " | cut -f3 -d " ")
+
+echo "IMAGE: ${IMAGE}"
+echo "CONTAINER: ${CONTAINER}"
+echo "---------------------"
+
+build_image (){
+    docker build --no-cache=true -t "${IMAGE}" .
+    echo "${IMAGE} image is built."
+}
+
+start (){
+    if docker ps -a --filter name="/${CONTAINER}$" | grep -q "${CONTAINER}"; then
+        docker start "${CONTAINER}"
+    else
+        echo "start from docker image ${IMAGE}"
+        docker run --name ${CONTAINER} -itd --rm=true \
+        -v $(pwd):/home/sakanashi \
+        -u $(id -u):$(id -g) \
+        ${IMAGE_ID} sh
+    fi
+    echo "${CONTAINER} container is started successfully!"
+}
+
+restart (){
+    stop
+    start
+}
+
+console (){
+        docker run --name ${CONTAINER} -it --rm=true \
+        -v $(pwd):/home/sakanashi \
+        -u $(id -u):$(id -g) \
+        -w /home/sakanashi \
+        ${IMAGE_ID} sh
+}
+
+stop (){
+    if docker ps --filter name="/${CONTAINER}$" | grep -q "${CONTAINER}"; then
+        docker stop "${CONTAINER}"
+        echo "${CONTAINER} container is stopped."
+    fi
+}
+
+clean (){
+    if docker ps --filter name="/${CONTAINER}$" | grep -q "${CONTAINER}"; then
+        docker stop "${CONTAINER}"
+        echo "${CONTAINER} container is stopped."
+    fi
+    docker rm "${CONTAINER}"
+    echo "${CONTAINER} container is removed."
+}
+
+remove (){
+    if docker ps --filter name="/${CONTAINER}$" | grep -q "${CONTAINER}"; then
+        docker stop "${CONTAINER}"
+        echo "${CONTAINER} container is stopped."
+    fi
+    if docker ps -a --filter name="/${CONTAINER}$" | grep -q "${CONTAINER}"; then
+        docker rm "${CONTAINER}"
+        echo "${CONTAINER} container is removed."
+    fi
+    docker rmi "${IMAGE}"
+    echo "${CONTAINER} container and image are removed."
+}
+
+status (){
+    docker ps -a --filter name="/${CONTAINER}$"
+}
+
+case "$1" in
+    build)
+        build_image
+        exit 0
+        ;;
+
+    start)
+	start
+	exit 0
+	;;
+
+    restart)
+	restart
+        exit 0
+        ;;
+
+    console)
+	console
+        exit 0
+        ;;
+
+    stop)
+	stop
+	exit 0
+	;;
+
+    clean)
+	clean
+	exit 0
+	;;
+
+    remove)
+	remove
+	exit 0
+	;;
+
+    status)
+	status
+	exit 0
+	;;
+
+    *)
+	echo "Usage: sakanashi {build|start|restart|console|stop|clean|remove|status}"
+	exit 1
+	;;
+esac
