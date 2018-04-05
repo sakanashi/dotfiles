@@ -3,6 +3,11 @@
 ;(require 'cask)
 (cask-initialize)
 
+;; eaw
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(require 'eaw)
+(eaw-fullwidth)
+
 ;; anzu
 (global-anzu-mode t)
 (setq anzu-search-threshold 1000)
