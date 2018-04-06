@@ -1,6 +1,7 @@
 autoload -U compinit
 compinit
-autoload -U colors; colors
+autoload -Uz colors
+colors
 
 ### envs ###
 export LANG=ja_JP.UTF-8
@@ -67,11 +68,24 @@ setopt hist_reduce_blanks
 setopt share_history
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
-
-
-### history search ###
 autoload history-search-end
 
+### tmux ###
+function change_tmux_prefix {
+    tmux ls > /dev/null
+    if [ $? -eq 1 -a -z "$TMUX" ]; then
+    else
+        prefix=$(tmux show-options -g prefix)
+        if [ "${prefix}" = "prefix C-z" ]; then
+            tmux set-option -ag prefix C-o
+            tmux set-option -ag status-bg "colour075"
+        else
+            tmux set-option -ag prefix C-z
+            tmux set-option -ag status-bg "green"
+        fi
+    fi
+}
+alias prefix='$(change_tmux_prefix)'
 
 ### color ###
 if [ -f ~/.dircolors.ansi-dark ]; then
