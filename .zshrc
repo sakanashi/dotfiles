@@ -120,6 +120,12 @@ alias less='less -qR'
     export PATH=${HOME}/.rbenv/bin:${PATH} && \
     eval "$(rbenv init -)"
 
+## nodebrew ##
+if [[ -f ~/.nodebrew/nodebrew ]]; then
+    export PATH=$HOME/.nodebrew/current/bin:$PATH
+    #    nodebrew use v0.8
+fi
+
 ### ssh-agent ###
 agent="$HOME/.ssh/agent"
 if [ -S "$SSH_AUTH_SOCK" ]; then
