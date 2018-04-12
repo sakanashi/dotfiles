@@ -77,7 +77,7 @@ function change_tmux_prefix {
     else
         prefix=$(tmux show-options -g prefix)
         if [ "${prefix}" = "prefix C-z" ]; then
-            tmux set-option -ag prefix C-o
+            tmux set-option -ag prefix C-t
             tmux set-option -ag status-bg "colour075"
         else
             tmux set-option -ag prefix C-z
