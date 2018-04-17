@@ -55,15 +55,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; タブ, 全角スペース表示
-(setq whitespace-style
-                  '(tabs tab-mark spaces space-mark))
-(setq whitespace-space-regexp "\\(\x3000+\\)")
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\□]
-                    )(tab-mark   ?\t   [?\xBB ?\t])
-                     ))
 (require 'whitespace)
-(global-whitespace-mode 1)
 (set-face-foreground 'whitespace-space "LightSlateGray")
 (set-face-background 'whitespace-space "DarkSlateGray")
 (set-face-foreground 'whitespace-tab "LightSlateGray")
@@ -90,15 +82,31 @@
 ;; (setq default-buffer-file-coding-system 'utf-8)
 (setq buffer-file-coding-system 'utf-8)
 
-
 ;;(require 'undo-tree)
 ;;(global-undo-tree-mode t)
 ;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
 
+(require 'web-mode)
+;;; 適用する拡張子
+(add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 
-;;(require 'web-mode) 
-;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
+;;; インデント数
+(require 'web-mode)
+(add-hook 'web-mode-hook 'web-mode-hook)
+(defun web-mode-hook ()
+    "Hooks for Web mode."
+    (setq web-mode-html-offset   2)
+    (setq web-mode-css-offset    2)
+    (setq web-mode-script-offset 2)
+    (setq web-mode-php-offset    2)
+    (setq web-mode-java-offset   2)
+    (setq web-mode-asp-offset    2))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 ;(add-to-list 'load-path "~/.emacs.d/lisp/")
 ;(require 'yaml-mode)
@@ -157,9 +165,17 @@
 ;;; theme ;;;
 (set-face-background 'linum "#2f2f2f")
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(font-lock-comment-face ((t (:foreground "cyan" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "color-69" :slant italic))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "yellow")))))
