@@ -151,9 +151,13 @@
 ;;       (when (> offset 0) (forward-char offset)))))
 
 ;; fly-check
-(autoload 'flycheck-mode "flycheck")
-(add-hook 'ruby-mode-hook 'flycheck-mode)
-(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+;; flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;;(add-hook 'after-init-hook 'global-flycheck-mode)
+;; (autoload 'flycheck-mode "flycheck")
+;; (add-hook 'ruby-mode-hook 'flycheck-mode)
+;; (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
 
 ;; ruby-block.el --- highlight matching block
 (require 'ruby-block)
@@ -176,6 +180,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(font-lock-comment-face ((t (:foreground "color-69" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "color-144" :slant italic))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "yellow")))))
