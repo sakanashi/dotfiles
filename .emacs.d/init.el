@@ -152,7 +152,10 @@
 
 ;; fly-check
 ;; flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+    :ensure t
+      :init (global-flycheck-mode))
+;(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;(add-hook 'after-init-hook 'global-flycheck-mode)
 ;; (autoload 'flycheck-mode "flycheck")
