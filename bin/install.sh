@@ -3,10 +3,13 @@ set -ex
 
 SCRIPT_PATH=$(cd $(dirname $0); pwd)
 
-# install emacs
+#install emacs
 $SCRIPT_PATH/install_emacs24.sh
 
-# install cask
+#install cask
 $SCRIPT_PATH/get_cask.sh
-
 cd ~/.emacs.d; cask install
+
+# install tmux
+$SCRIPT_PATH/install_tmux.sh
+
