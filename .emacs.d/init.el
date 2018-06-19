@@ -8,11 +8,15 @@
 (require 'eaw)
 (eaw-fullwidth)
 
-;; anzu
-(global-anzu-mode t)
-(setq anzu-search-threshold 1000)
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+;; ;; anzu
+;; (global-anzu-mode t)
+;; (setq anzu-search-threshold 1000)
+;; (global-set-key (kbd "M-%") 'anzu-query-replace)
+;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+;; avy
+(global-set-key (kbd "M-j") 'avy-goto-word-1)
+(global-set-key (kbd "C-M-j") 'avy-goto-char)
 
 ;; バッファ内の表示
 ;;行番号を常に表示
@@ -43,6 +47,28 @@
 
 (global-set-key "\C-m" 'newline-and-indent)
 (electric-pair-mode 1)
+
+;; dumb-jump
+(require 'dumb-jump)
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+  :ensure)
+;; ;(setq dumb-jump-mode t)
+;; ;(setq dumb-jump-selector 'ivy) ;; 候補選択をivyに任せます
+;; ;; (setq dumb-jump-use-visible-window nil)
+;; ;; (define-key global-map [(super d)] 'dumb-jump-go) ;; go-to-definition!
+;; ;; (define-key global-map [(super shift d)] 'dumb-jump-back)
+;; ;; これをしないとホームディレクトリ以下が検索対象になる
+;; (setq dumb-jump-default-project "")
+;; ;; 日本語を含むパスだとgit grepがちゃんと動かない…
+;; ;(setq dumb-jump-force-searcher 'rg)
+;; ;; 標準キーバインドを有効にする
+;; (dumb-jump-mode)
 
 ;; ==================================================
 ;; Indent
@@ -120,6 +146,10 @@
 
 ;(require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
+;; ;; helm
+;; (require 'helm-config)
+;; (helm-mode 1)
 
 ; ==============
 ; ruby indent setting (https://qiita.com/hiconyan/items/582e27128decfe9d249e)

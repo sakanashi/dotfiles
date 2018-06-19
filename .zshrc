@@ -110,7 +110,9 @@ case "${OSTYPE}" in
 esac
 
 alias grepc='grep -nr --color=always --with-filename'
+alias grep="grep -n --color=auto "
 alias less='less -qR'
+alias gitg='git grep -n --break  --color=auto'
 # if [[ -x `which colordiff` ]]; then
 #       alias diff='colordiff'
 # fi
