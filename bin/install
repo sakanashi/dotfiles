@@ -1,0 +1,15 @@
+#!/bin/bash
+set -ex
+
+SCRIPT_PATH=$(cd $(dirname $0); pwd)
+
+#install emacs
+$SCRIPT_PATH/install_emacs24
+
+#install cask
+$SCRIPT_PATH/get_cask
+cd ~/.emacs.d; cask install
+
+# install tmux
+$SCRIPT_PATH/install_tmux
+

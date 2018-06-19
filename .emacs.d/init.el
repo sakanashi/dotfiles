@@ -120,9 +120,9 @@
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'"     . web-mode))
 
 ;;; インデント数
-(require 'web-mode)
 (add-hook 'web-mode-hook 'web-mode-hook)
 (defun web-mode-hook ()
     "Hooks for Web mode."
@@ -134,8 +134,8 @@
     (setq web-mode-asp-offset    2))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
-;(add-to-list 'load-path "~/.emacs.d/lisp/")
-;(require 'yaml-mode)
+
+;;(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.dig$" . yaml-mode))
@@ -144,8 +144,6 @@
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
-;(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
 ;; ;; helm
 ;; (require 'helm-config)
