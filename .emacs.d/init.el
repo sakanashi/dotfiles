@@ -28,8 +28,8 @@
 ;; 行番号の後ろにスペース
 (setq linum-format "%4d| ")
 ;; 現在行と桁をハイライト
-;;(require 'crosshairs)
-;;(crosshairs-mode 1)
+;; (require 'crosshairs)
+;; (crosshairs-mode 1)
 ;; 対応する括弧を表示
 (show-paren-mode t)
 ;; ミニバッファの表示
@@ -178,17 +178,20 @@
 ;;       (indent-line-to indent)
 ;;       (when (> offset 0) (forward-char offset)))))
 
+;; git-gutter
+(require 'git-gutter)
+(global-git-gutter-mode t)
+(git-gutter:linum-setup)
+
 ;; fly-check
 ;; flycheck
-(use-package flycheck
-    :ensure t
-      :init (global-flycheck-mode))
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+;; (use-package flycheck
+;;     :ensure t
+;;       :init (global-flycheck-mode))
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
-
-;;(add-hook 'after-init-hook 'global-flycheck-mode)
-;; (autoload 'flycheck-mode "flycheck")
-;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-;; (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
 
 ;; ruby-block.el --- highlight matching block
 (require 'ruby-block)
