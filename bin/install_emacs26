@@ -16,7 +16,7 @@ curl -O http://ftpmirror.gnu.org/emacs/emacs-${ver}.tar.gz
 tar -zxf emacs-${ver}.tar.gz
 
 cd emacs-${ver}/
-./configure --prefix=$HOME/local --without-ns --with-gif=no --with-pop --with-mailutils
+./configure --prefix=$HOME/local --without-ns --with-gif=no --with-pop --with-mailutils --without-x
 make
 make install
 
