@@ -18,18 +18,24 @@
 (global-set-key (kbd "M-j") 'avy-goto-word-1)
 (global-set-key (kbd "C-M-j") 'avy-goto-char)
 
-;; バッファ内の表示
-;;行番号を常に表示
-(global-linum-mode t)
-;; 行番号の見た目
-(set-face-attribute 'linum nil
-                    :foreground "eee8d5"
-                    :height 0.9)
-;; 行番号の後ろにスペース
-(setq linum-format "%4d| ")
-;; 現在行と桁をハイライト
-;;(require 'crosshairs)
-;;(crosshairs-mode 1)
+;; line-number
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode))
+(when (version<= emacs-version "26.0.50" )
+  ;;行番号を常に表示
+  (global-linum-mode t)
+
+  ;; 行番号の見た目
+  (set-face-attribute 'linum nil
+                      :foreground "eee8d5"
+                      :height 0.9)
+  ;; 行番号の後ろにスペース
+  (setq linum-format "%4d| ")
+  ;; 現在行と桁をハイライト
+  ;; (require 'crosshairs)
+  ;; (crosshairs-mode 1)
+  )
+
 ;; 対応する括弧を表示
 (show-paren-mode t)
 ;; ミニバッファの表示
@@ -178,27 +184,30 @@
 ;;       (indent-line-to indent)
 ;;       (when (> offset 0) (forward-char offset)))))
 
+;; git-gutter
+(require 'git-gutter)
+(global-git-gutter-mode t)
+;(git-gutter:linum-setup)
+
 ;; fly-check
 ;; flycheck
-(use-package flycheck
-    :ensure t
-      :init (global-flycheck-mode))
+(require 'flycheck)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+;; (use-package flycheck
+;;     :ensure t
+;;       :init (global-flycheck-mode))
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
-;;(add-hook 'after-init-hook 'global-flycheck-mode)
-;; (autoload 'flycheck-mode "flycheck")
-;; (add-hook 'ruby-mode-hook 'flycheck-mode)
-;; (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
-
 ;; ruby-block.el --- highlight matching block
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
+;(require 'ruby-block)
+;(ruby-block-mode t)
+;(setq ruby-block-highlight-toggle t)
 ;; highlight end
 (require 'ruby-end)
 
 ;;; theme ;;;
-(set-face-background 'linum "#2f2f2f")
+;(set-face-background 'linum "#2f2f2f")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
