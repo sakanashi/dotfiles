@@ -1,6 +1,5 @@
 (package-initialize)
 (require 'cask "~/.cask/cask.el")
-;(require 'cask)
 (cask-initialize)
 
 ;; eaw
@@ -22,19 +21,18 @@
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 (when (version<= emacs-version "26.0.50" )
-  ;;行番号を常に表示
   (global-linum-mode t)
-
-  ;; 行番号の見た目
   (set-face-attribute 'linum nil
                       :foreground "eee8d5"
                       :height 0.9)
-  ;; 行番号の後ろにスペース
   (setq linum-format "%4d| ")
-  ;; 現在行と桁をハイライト
-  ;; (require 'crosshairs)
-  ;; (crosshairs-mode 1)
   )
+
+;; line hilight
+(global-hl-line-mode t)
+(custom-set-faces
+'(hl-line ((t (:background "color-238"))))
+)
 
 ;; 対応する括弧を表示
 (show-paren-mode t)
@@ -119,7 +117,6 @@
 ;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
 
 (require 'web-mode)
-;;; 適用する拡張子
 (add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
@@ -139,7 +136,6 @@
     (setq web-mode-java-offset   2)
     (setq web-mode-asp-offset    2))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
 
 ;;(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
