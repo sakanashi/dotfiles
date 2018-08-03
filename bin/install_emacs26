@@ -12,11 +12,11 @@ mkdir -p ~/local/src
 cd ~/local/src/
 
 [ -f emacs-${ver}.tar.xz ] && rm emacs-${ver}.tar.xz
-curl -O http://ftpmirror.gnu.org/emacs/emacs-${ver}.tar.gz
+wget http://ftpmirror.gnu.org/emacs/emacs-${ver}.tar.gz
 tar -zxf emacs-${ver}.tar.gz
 
 cd emacs-${ver}/
-./configure --prefix=$HOME/local --without-ns --with-gif=no --with-pop --with-mailutils --without-x
+./configure --prefix=$HOME/local --with-gif=no --with-pop --with-mailutils --with-gnutls=no --without-x --without-ns
 make
 make install
 
