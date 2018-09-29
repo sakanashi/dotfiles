@@ -4,8 +4,11 @@ RUN yum -y update && \
   yum -y install \
   bc \
   bzip2 \
+  gcc \
   git \
   jq \
+  make \
+  ncurses-devel \
   sudo \
   tree \
   wget \

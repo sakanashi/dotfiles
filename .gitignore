@@ -6,3 +6,4 @@ TAGS
 
 .git
 .emacs.d/.cask
+.emacs.d/elpa

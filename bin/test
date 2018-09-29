@@ -17,6 +17,7 @@ echo "CONTAINER: ${CONTAINER}"
 echo "---------------------"
 
 build_image (){
+    #echo 0 > /proc/sys/kernel/randomize_va_space; \
     docker build --no-cache=false -t "${IMAGE}" -f Dockerfile.centos7 .
     echo "${IMAGE} image is built."
 }
@@ -27,6 +28,7 @@ start (){
     else
         echo "start from docker image ${IMAGE}"
         docker run --name ${CONTAINER} \
+            --security-opt seccomp=unconfined \
             -e "HOME=/home/ryusakanashi" \
             -v $HOME/git/dotfiles:/home/ryusakanashi/dotfiles \
             -u $(id -u):$(id -g) \

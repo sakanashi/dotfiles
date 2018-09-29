@@ -3,5 +3,5 @@ set -eu
 
 chsh -s /bin/zsh
 
-echo "next: exec $SHELL -l"
+echo 'Enext: exec $SHELL -l'
 

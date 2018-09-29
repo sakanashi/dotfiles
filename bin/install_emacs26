@@ -1,5 +1,5 @@
 #! /bin/bash
-set -ex
+set -eux
 
 ver=26.1
 echo 'Start install emacs-${ver}'
