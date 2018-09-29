@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 set -eu
 
@@ -7,16 +7,17 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
-IMAGE="sakanashi-console"
-CONTAINER="sakanashi-console"
+IMAGE="centos-test"
+CONTAINER="centos7"
 IMAGE_ID=$(docker images | grep "^${IMAGE}" | tr -s " " | cut -f3 -d " ")
 
 echo "IMAGE: ${IMAGE}"
+echo "IMAGE_ID: ${IMAGE_ID}"
 echo "CONTAINER: ${CONTAINER}"
 echo "---------------------"
 
 build_image (){
-    docker build --no-cache=true -t "${IMAGE}" -f Dockerfile .
+    docker build --no-cache=false -t "${IMAGE}" -f Dockerfile.centos7 .
     echo "${IMAGE} image is built."
 }
 
@@ -25,12 +26,12 @@ start (){
         docker start "${CONTAINER}"
     else
         echo "start from docker image ${IMAGE}"
-        docker run --name ${CONTAINER} -itd --rm=true \
-            -e "HOME=$HOME" \
-            -v $HOME:$HOME \
+        docker run --name ${CONTAINER} \
+            -e "HOME=/home/ryusakanashi" \
+            -v $HOME/git/dotfiles:/home/ryusakanashi/dotfiles \
             -u $(id -u):$(id -g) \
-            -w $HOME \
-            ${IMAGE_ID} sh
+            -w /home/ryusakanashi \
+            -itd ${IMAGE_ID} /bin/bash
     fi
     echo "${CONTAINER} container is started successfully!"
 }

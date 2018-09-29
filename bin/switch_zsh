@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+
+chsh -s /bin/zsh
+
+echo "next: exec $SHELL -l"
+

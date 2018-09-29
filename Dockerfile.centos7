@@ -1,0 +1,32 @@
+FROM centos:centos7
+
+RUN yum -y update && \
+  yum -y install \
+  bc \
+  bzip2 \
+  git \
+  jq \
+  sudo \
+  tree \
+  wget \
+  zsh && \
+  yum clean all
+
+ENV user ryusakanashi
+
+RUN useradd -u 501 -m -d /home/${user} ${user} && \
+ chown -R ${user} /home/${user} && \
+ echo "${user} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${user} && \
+ echo "${user}:password" | chpasswd
+USER ${user}
+
+# ARG USER_NAME=ryusakanashi
+# RUN useradd --user-group --create-home --shell /bin/false ${USER_NAME} &&\
+#   echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${USER_NAME}
+# #ENV HOME=/home/${USER_NAME}
+# #RUN mkdir /opt/work
+# #RUN chown ${USER_NAME}:${USER_NAME} /opt/work
+# USER ${USER_NAME}
+
+SHELL ["/bin/bash"]
+CMD ["/bin/bash"]
