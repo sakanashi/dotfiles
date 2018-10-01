@@ -7,11 +7,14 @@ mkdir -p ~/local/src
 cd ~/local/src/
 
 # Get&build libevent
-#wget --secure-protocol=TLSv1 https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 curl -L https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz -o libevent-2.1.8-stable.tar.gz
 tar zxf libevent-2.1.8-stable.tar.gz
 cd libevent-2.1.8-stable
-./configure --prefix=${HOME}/local
+# mac
+./configure --prefix=${HOME}/local LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include"
+#LDFLAGS='-L/usr/local/opt/openssl/lib' CPPFLAGS='-I/usr/local/opt/openssl/include'
+# # centos
+# ./configure --prefix=${HOME}/local
 make
 make install
 
@@ -26,7 +29,7 @@ make install
 
 # Get tmux
 cd ~/local/src/
-wget https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
+curl -L https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz -o tmux-2.6.tar.gz
 tar zxf tmux-2.6.tar.gz
 cd tmux-2.6
 wget https://gist.githubusercontent.com/z80oolong/e65baf0d590f62fab8f4f7c358cbcc34/raw/3a3269767c863f3b25dbdf3849ed53150b28306e/tmux-HEAD-fb02df66-fix.diff
@@ -44,10 +47,3 @@ fi
 mkdir -p ~/.tmux/plugins/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 echo 'Succeeded.'
-
-# curl -kLO https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
-# tar -zxvf tmux-2.6.tar.gz
-# cd tmux-2.6
-# ./configure
-# make
-# sudo make install
