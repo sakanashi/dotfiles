@@ -6,7 +6,6 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'eaw)
 (eaw-fullwidth)
-
 ;; ;; anzu
 ;; (global-anzu-mode t)
 ;; (setq anzu-search-threshold 1000)
@@ -100,6 +99,9 @@
                  '(("[ \t]+$" 0 my-face append))))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
+
+;; insert a line break at the end of the file
+(setq require-final-newline t)
 
 ;; ==================================================
 ;; language
