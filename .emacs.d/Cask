@@ -7,6 +7,7 @@
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "color-theme")
+(depends-on "company")
 ;(depends-on "crosshairs")
 (depends-on "cyberpunk-theme")
 (depends-on "dash")
@@ -29,6 +30,7 @@
 (depends-on "prodigy")
 (depends-on "projectile")
 ; (depends-on "ruby-block")
+(depends-on "ruby-electric")
 (depends-on "ruby-end")
 (depends-on "s")
 (depends-on "smartparens")
@@ -39,7 +41,7 @@
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
 ;(depends-on "helm")
-;(depends-on "robe")
+(depends-on "robe")
 
 ;; modes
 (depends-on "adoc-mode")

@@ -6,11 +6,14 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'eaw)
 (eaw-fullwidth)
-;; ;; anzu
-;; (global-anzu-mode t)
-;; (setq anzu-search-threshold 1000)
-;; (global-set-key (kbd "M-%") 'anzu-query-replace)
-;; (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+;; anzu
+(when (require 'anzu)
+  (global-anzu-mode t)
+  (setq anzu-search-threshold 1000)
+  (global-set-key (kbd "M-%") 'anzu-query-replace)
+  (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+  )
 
 ;; avy
 (global-set-key (kbd "M-j") 'avy-goto-word-1)
@@ -73,6 +76,43 @@
 ;; ;; 標準キーバインドを有効にする
 ;; (dumb-jump-mode)
 
+;; company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
+(with-eval-after-load 'company
+  (global-company-mode)
+  (setq company-auto-expand t) ;; auto expand the first one
+  (setq company-transformers '(company-sort-by-backend-importance)) ;; sort
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t) 
+  (setq completion-ignore-case t)
+  (setq company-dabbrev-downcase nil)
+  (global-set-key (kbd "C-M-i") 'company-complete)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map [tab] 'company-complete-selection)
+  (define-key company-active-map (kbd "C-h") nil)
+  (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer)
+
+  ; unselected items
+  (set-face-attribute 'company-tooltip nil
+                      :foreground "black" :background "lightgrey")
+  ; unselected items and match
+  (set-face-attribute 'company-tooltip-common nil
+                      :foreground "black" :background "lightgrey")
+  ;; selected item
+  (set-face-attribute 'company-tooltip-selection nil
+                      :foreground "white" :background "steelblue")
+  ;; selected items and match
+  (set-face-attribute 'company-tooltip-common-selection nil
+                      :foreground "lightblue" :background "steelblue")
+  ;; (set-face-attribute 'company-preview-common nil
+  ;;                   :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-fg nil
+                      :background "orange")
+  (set-face-attribute 'company-scrollbar-bg nil
+                      :background "gray40")
+  )
+
 ;; ==================================================
 ;; Indent
 ;; ==================================================
@@ -119,25 +159,33 @@
 ;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
 
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'"    . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js?\\'"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss?\\'"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.sass?\\'"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 
 ;;; インデント数
 (add-hook 'web-mode-hook 'web-mode-hook)
 (defun web-mode-hook ()
     "Hooks for Web mode."
-    (setq web-mode-html-offset   2)
-    (setq web-mode-css-offset    2)
-    (setq web-mode-script-offset 2)
-    (setq web-mode-php-offset    2)
-    (setq web-mode-java-offset   2)
-    (setq web-mode-asp-offset    2))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+    (setq web-mode-asp-offset           2)
+    (setq web-mode-code-indent-offset   2)
+    (setq web-mode-css-indent-offset    2)
+    (setq web-mode-css-offset           2)
+    (setq web-mode-html-offset          2)
+    (setq web-mode-java-offset          2)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-php-offset           2)
+    (setq web-mode-script-offset        2))
 
 ;;(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
@@ -148,39 +196,45 @@
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
-
 ;; ;; helm
 ;; (require 'helm-config)
 ;; (helm-mode 1)
 
-; ==============
-; ruby indent setting (https://qiita.com/hiconyan/items/582e27128decfe9d249e)
-; なんか動かないので保留
-; =============
-;; (autoload 'ruby-mode "ruby-mode")
-;; (autoload 'ruby-electric-mode "ruby-electric")
-;; (global-set-key (kbd "C-c r b") 'ruby-mode)
-;; (add-to-list 'auto-mode-alist '("\\.rb$" ruby-mode))
-;; (setq ruby-deep-indent-paren-style nil)
-;; (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-;; (add-hook-fn 'ruby-mode-hook
-;;              (ruby-electric-mode)
-;;              (setq ruby-indent-level 2)
-;;              (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent))
-;; (defadvice ruby-indent-line (after unindent-closing-paren activate)
-;;   (let ((column (current-column))
-;;         indent offset)
-;;     (save-excursion
-;;       (back-to-indentation)
-;;       (let ((state (syntax-ppss)))
-;;         (setq offset (- column (current-column)))
-;;         (when (and (eq (char-after) ?\))
-;;                    (not (zerop (car state))))
-;;           (goto-char (cadr state))
-;;           (setq indent (current-indentation)))))
-;;     (when indent
-;;       (indent-line-to indent)
-;;       (when (> offset 0) (forward-char offset)))))
+;; robe
+;; (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
+;; (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
+;; (add-hook 'robe-mode-hook 'robe-ac-setup)
+
+;; do endなどの補完
+;; (require 'ruby-electric)
+;; (add-hook 'ruby-mode-hook '(lambda ()
+;;           (ruby-electric-mode t)))
+;(setq ruby-electric-expand-delimiters-list nil)
+
+;; 補完機能
+;; robe-modeの有効化とcompanyとの連携
+(add-hook 'ruby-mode-hook 'robe-mode)
+(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
+
+(add-hook 'ruby-mode-hook (lambda()
+      (company-mode)
+      (setq company-auto-expand t)
+      (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+      (setq company-idle-delay 0) ; 遅延なしにすぐ表示
+      (setq company-minimum-prefix-length 1) ; 何文字打つと補完動作を行うか設定
+      (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+      (setq completion-ignore-case t)
+      (setq company-dabbrev-downcase nil)
+      (global-set-key (kbd "C-M-i") 'company-complete)
+      ;; C-n, C-pで補完候補を次/前の候補を選択
+      (define-key company-active-map (kbd "C-n") 'company-select-next)
+      (define-key company-active-map (kbd "C-p") 'company-select-previous)
+      (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ;; C-sで絞り込む
+      (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
+      (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
+      ))
 
 ;; git-gutter
 (require 'git-gutter)
