@@ -266,6 +266,12 @@
  '(web-mode-css-string-face        ((t (:foreground "#D78181"))))
  )
 
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'less-mode-hook 'rainbow-mode)
+(add-hook 'web-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+
 ;; yaml-mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
@@ -356,5 +362,5 @@
  '(font-lock-comment-face ((t (:foreground "color-144" :slant italic))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "yellow"))))
- '(hl-line ((t (:background "color-237"))))
+ '(hl-line ((t (:background "color-235"))))
  '(shadow ((t (:foreground "grey70")))))
