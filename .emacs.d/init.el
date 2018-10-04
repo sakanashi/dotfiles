@@ -7,13 +7,30 @@
 (require 'eaw)
 (eaw-fullwidth)
 
+;; ;; smart-mode-line
+(setq sml/theme 'respectful)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+(set-face-background 'mode-line "color-236")
+
 ;; anzu
 (when (require 'anzu)
   (global-anzu-mode t)
+  (setq anzu-mode-lighter "")
+  (setq anzu-deactivate-region t)
   (setq anzu-search-threshold 1000)
   (global-set-key (kbd "M-%") 'anzu-query-replace)
   (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+  (set-face-attribute 'anzu-mode-line nil
+                      :foreground "yellow" :weight 'bold)
+  (define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
+  (define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
   )
+
+;; rainbow-delimiters
+;; rainbow-delimiters を使うための設定
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; avy
 (global-set-key (kbd "M-j") 'avy-goto-word-1)
@@ -21,7 +38,8 @@
 
 ;; line-number
 (when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode))
+  (global-display-line-numbers-mode)
+  )
 (when (version<= emacs-version "26.0.50" )
   (global-linum-mode t)
   (set-face-attribute 'linum nil
@@ -32,9 +50,6 @@
 
 ;; line hilight
 (global-hl-line-mode t)
-(custom-set-faces
-'(hl-line ((t (:background "color-238"))))
-)
 
 ;; 対応する括弧を表示
 (show-paren-mode t)
@@ -76,8 +91,9 @@
 ;; ;; 標準キーバインドを有効にする
 ;; (dumb-jump-mode)
 
-;; company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
-(with-eval-after-load 'company
+;; company-mode
+                                        ;(with-eval-after-load 'company
+(require 'company)
   (global-company-mode)
   (setq company-auto-expand t) ;; auto expand the first one
   (setq company-transformers '(company-sort-by-backend-importance)) ;; sort
@@ -101,17 +117,49 @@
                       :foreground "black" :background "lightgrey")
   ;; selected item
   (set-face-attribute 'company-tooltip-selection nil
-                      :foreground "white" :background "steelblue")
+                      :foreground "black" :background "steelblue")
   ;; selected items and match
   (set-face-attribute 'company-tooltip-common-selection nil
-                      :foreground "lightblue" :background "steelblue")
-  ;; (set-face-attribute 'company-preview-common nil
-  ;;                   :background nil :foreground "lightgrey" :underline t)
+                      :foreground "white" :background "steelblue")
+  (set-face-attribute 'company-preview-common nil
+                    :background nil :foreground "lightgrey" :underline t)
   (set-face-attribute 'company-scrollbar-fg nil
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
                       :background "gray40")
-  )
+;  )
+
+
+;; (require 'company-web-html)                          ; load company mode html backend
+;; ;; and/or
+;; (require 'company-web-jade)                          ; load company mode jade backend
+;; (require 'company-web-slim)                          ; load company mode slim backend
+;; ;; (setq company-minimum-prefix-length 0)            ; WARNING, probably you will get perfomance issue if min len is 0!
+;; (setq company-tooltip-limit 20)                      ; bigger popup window
+;; (setq company-tooltip-align-annotations 't)          ; align annotations to the right tooltip border
+;; (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+;; (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+;; (global-set-key (kbd "C-c /") 'company-files)        ; Force complete file names on "C-c /" key
+;; (defun my-web-mode-hook ()
+;;   "Hook for `web-mode'."
+;;     (set (make-local-variable 'company-backends)
+;;          '(company-tern company-web-html company-yasnippet company-files)))
+
+;; (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+;; ;; Enable JavaScript completion between <script>...</script> etc.
+;; (advice-add 'company-tern :before
+;;             #'(lambda (&rest _)
+;;                 (if (equal major-mode 'web-mode)
+;;                     (let ((web-mode-cur-language
+;;                           (web-mode-language-at-pos)))
+;;                       (if (or (string= web-mode-cur-language "javascript")
+;;                               (string= web-mode-cur-language "jsx"))
+;;                           (unless tern-mode (tern-mode))
+;;                         (if tern-mode (tern-mode -1)))))))
+
+;; manual autocomplete
+;(define-key web-mode-map (kbd "M-SPC") 'company-complete)
 
 ;; ==================================================
 ;; Indent
@@ -173,21 +221,53 @@
 (add-to-list 'auto-mode-alist '("\\.sass?\\'"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 
-;;; インデント数
-(add-hook 'web-mode-hook 'web-mode-hook)
-(defun web-mode-hook ()
-    "Hooks for Web mode."
-    (setq web-mode-asp-offset           2)
-    (setq web-mode-code-indent-offset   2)
-    (setq web-mode-css-indent-offset    2)
-    (setq web-mode-css-offset           2)
-    (setq web-mode-html-offset          2)
-    (setq web-mode-java-offset          2)
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-php-offset           2)
-    (setq web-mode-script-offset        2))
+                                        ;(defun web-mode-hook ()
+(eval-after-load "web-mode"
+  (add-hook 'web-mode-hook
+            '(lambda ()
+               (setq web-mode-asp-offset           2)
+               (setq web-mode-code-indent-offset   2)
+               (setq web-mode-css-indent-offset    2)
+               (setq web-mode-css-offset           2)
+               (setq web-mode-html-offset          2)
+               (setq web-mode-java-offset          2)
+               (setq web-mode-markup-indent-offset 2)
+               (setq web-mode-php-offset           2)
+               (setq web-mode-script-offset        2)
 
-;;(require 'yaml-mode)
+               (setq web-mode-auto-close-style 2)
+               (setq web-mode-enable-auto-closing t)
+               (setq web-mode-enable-auto-pairing t)
+               (setq web-mode-enable-auto-quoting t)
+               (setq web-mode-enable-current-column-highlight t)
+               (setq web-mode-enable-current-element-highlight t)
+               (setq web-mode-tag-auto-close-style 2)
+               ))
+  )
+;  )
+;; (eval-after-load "web-mode"
+;;   (add-hook 'web-mode-hook 'web-mode-hook))
+
+(custom-set-faces
+ '(web-mode-doctype-face           ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-tag-face          ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-tag-bracket-face  ((t (:foreground "#4A8ACA"))))
+ '(web-mode-html-attr-name-face    ((t (:foreground "#87CEEB"))))
+ '(web-mode-html-attr-equal-face   ((t (:foreground "#FFFFFF"))))
+ '(web-mode-html-attr-value-face   ((t (:foreground "#D78181"))))
+ '(web-mode-comment-face           ((t (:foreground "#587F35"))))
+ '(web-mode-server-comment-face    ((t (:foreground "#587F35"))))
+
+ '(web-mode-css-at-rule-face       ((t (:foreground "#DFCF44"))))
+ '(web-mode-comment-face           ((t (:foreground "#587F35"))))
+ '(web-mode-css-selector-face      ((t (:foreground "#DFCF44"))))
+ '(web-mode-css-pseudo-class       ((t (:foreground "#DFCF44"))))
+ '(web-mode-css-property-name-face ((t (:foreground "#87CEEB"))))
+ '(web-mode-css-string-face        ((t (:foreground "#D78181"))))
+ )
+
+;; yaml-mode
+(require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.dig$" . yaml-mode))
@@ -197,13 +277,8 @@
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
 ;; ;; helm
-;; (require 'helm-config)
-;; (helm-mode 1)
-
-;; robe
-;; (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
-;; (autoload 'robe-ac-setup "robe-ac" "robe auto-complete" nil nil)
-;; (add-hook 'robe-mode-hook 'robe-ac-setup)
+(require 'helm-config)
+(helm-mode 1)
 
 ;; do endなどの補完
 ;; (require 'ruby-electric)
@@ -212,7 +287,7 @@
 ;(setq ruby-electric-expand-delimiters-list nil)
 
 ;; 補完機能
-;; robe-modeの有効化とcompanyとの連携
+;; robe-modeの有効化とcompanyとの連携 https://qiita.com/kod314/items/9a56983f0d70f57420b1
 (add-hook 'ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (eval-after-load 'company
@@ -265,7 +340,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(custom-safe-themes
+   (quote
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(package-selected-packages
+   (quote
+    (zenburn-theme yasnippet yaml-mode web-mode use-package tss tide solarized-theme smex smartparens smart-mode-line scss-mode sass-mode ruby-end ruby-electric robe projectile prodigy prettier-js powerline popwin pallet nyan-mode multiple-cursors moe-theme js2-mode idle-highlight-mode htmlize highlight-symbol groovy-mode gitignore-mode gitconfig-mode git-gutter flycheck-cask expand-region exec-path-from-shell dumb-jump drag-stuff dockerfile-mode cyberpunk-theme company-web color-theme coffee-mode avy anzu adoc-mode))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -274,4 +355,6 @@
  '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
  '(font-lock-comment-face ((t (:foreground "color-144" :slant italic))))
  '(font-lock-string-face ((t (:foreground "green"))))
- '(font-lock-variable-name-face ((t (:foreground "yellow")))))
+ '(font-lock-variable-name-face ((t (:foreground "yellow"))))
+ '(hl-line ((t (:background "color-237"))))
+ '(shadow ((t (:foreground "grey70")))))
