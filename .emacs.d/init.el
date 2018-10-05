@@ -283,8 +283,27 @@
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
 ;; ;; helm
+(require 'ag)
 (require 'helm-config)
-(helm-mode 1)
+;(helm-mode 1)
+(require 'helm-files)
+(require 'helm-ag)
+;; (setq helm-ag-base-command "ag --nocolor --nogroup -n")
+;; (global-set-key (kbd "M-s .") 'helm-ag)
+;; (global-set-key (kbd "M-s ,") 'helm-ag-pop-stack)
+;; (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
+(defun helm-ag-project-root ()
+  (interactive)
+  (let ((rootdir (helm-ag--project-root)))
+    (unless rootdir
+      (error "Could not find the project root. Create a git, hg, or svn repository there first. "))
+    (helm-ag rootdir)))
+
+(defun helm-ag--project-root ()
+  (cl-loop for dir in '(".git/" ".hg/" ".svn/" ".git")
+           when (locate-dominating-file default-directory dir)
+           return it))
+(global-set-key (kbd "M-s /") 'helm-ag-project-root)
 
 ;; do endなどの補完
 ;; (require 'ruby-electric)
