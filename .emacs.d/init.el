@@ -68,6 +68,16 @@
 ;; not use tab for indent
 (setq-default indent-tabs-mode nil)
 
+;; ==================================================
+;; which-key
+;; ==================================================
+(require 'which-key)
+(which-key-setup-side-window-bottom)        ; miniBuffer
+;; (which-key-setup-side-window-right)         ; right
+;; (which-key-setup-side-window-right-bottom)  ; both
+(which-key-mode 1)
+(setq which-key-idle-delay 0.5)
+
 ;; =================================================
 ;; color with spaces and tabs
 ;; =================================================
@@ -150,7 +160,7 @@
 ;;==============================================
 (require 'ag)
 (require 'helm-config)
-;(helm-mode 1)
+(helm-mode 1)
 (require 'helm-files)
 (require 'helm-ag)
 (defun helm-ag-project-root ()
