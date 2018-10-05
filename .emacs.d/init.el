@@ -2,40 +2,25 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
-;; eaw
+;; ==================================================
+;; Language
+;; ==================================================
+(set-language-environment 'Japanese)(prefer-coding-system 'utf-8)
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+;; (setq default-buffer-file-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+
+;; East Asian Ambiguous Width
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'eaw)
 (eaw-fullwidth)
 
-;; ;; smart-mode-line
-(setq sml/theme 'respectful)
-(setq sml/no-confirm-load-theme t)
-(sml/setup)
-(set-face-background 'mode-line "color-236")
-
-;; anzu
-(when (require 'anzu)
-  (global-anzu-mode t)
-  (setq anzu-mode-lighter "")
-  (setq anzu-deactivate-region t)
-  (setq anzu-search-threshold 1000)
-  (global-set-key (kbd "M-%") 'anzu-query-replace)
-  (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-  (set-face-attribute 'anzu-mode-line nil
-                      :foreground "yellow" :weight 'bold)
-  (define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
-  (define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
-  )
-
-;; rainbow-delimiters
-;; rainbow-delimiters を使うための設定
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-;; avy
-(global-set-key (kbd "M-j") 'avy-goto-word-1)
-(global-set-key (kbd "C-M-j") 'avy-goto-char)
-
+;; ==================================================
+;; Looks
+;; ==================================================
 ;; line-number
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode)
@@ -60,14 +45,94 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; バッファの操作に関する設定
 (setq x-select-enable-clipboard t)
-
-;; "C-t" でウインドウを切り替える
-(define-key global-map (kbd "C-t") 'other-window)
 ;; C-x 3 で自動的にfollow-modeにする
 (global-set-key "\C-x3" 'follow-delete-other-windows-and-split)
-
-(global-set-key "\C-m" 'newline-and-indent)
+;; auto insert pair bracket
 (electric-pair-mode 1)
+
+;; rainbow-delimiters
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; customize mode line
+(setq sml/theme 'respectful)
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+(set-face-background 'mode-line "color-236")
+
+;; ==================================================
+;; Indent
+;; ==================================================
+(setq c-default-style '((java-mode . "java") (other . "linux")))
+
+;; not use tab for indent
+(setq-default indent-tabs-mode nil)
+
+;; =================================================
+;; color with spaces and tabs
+;; =================================================
+(require 'whitespace)
+(setq whitespace-style '(face           ; visualize
+                         trailing       ; end of line
+                         tabs           ; tab
+                         spaces         ; spaces
+                         empty          ; empty line with first/last
+                         space-mark     ; mapping
+                         tab-mark
+                         ))
+
+(setq whitespace-display-mappings
+      '( ;(space-mark ?\u3000 [?\u25a1])
+        (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
+
+;; show only double-byte spaces
+(setq whitespace-space-regexp "\\(\u3000+\\)")
+
+;; auto cleanup before save
+(setq whitespace-action '(auto-cleanup))
+
+(global-whitespace-mode 1)
+
+(defvar my/bg-color "#4f4f4f")
+(set-face-attribute 'whitespace-trailing nil
+                    :background my/bg-color
+                    :foreground "DeepPink"
+                    :underline t)
+(set-face-attribute 'whitespace-tab nil
+                    :background my/bg-color
+                    :foreground "LightSkyBlue"
+                    :underline t)
+(set-face-attribute 'whitespace-space nil
+                    :background my/bg-color
+                    :foreground "GreenYellow"
+                    :weight 'bold)
+(set-face-attribute 'whitespace-empty nil
+                    :background my/bg-color)
+
+
+;; insert a line break at the end of the file
+(setq require-final-newline t)
+
+;; ==============================================
+;; Search / Jump
+;; ==============================================
+;; anzu
+(when (require 'anzu)
+  (global-anzu-mode t)
+  (setq anzu-mode-lighter "")
+  (setq anzu-deactivate-region t)
+  (setq anzu-search-threshold 1000)
+  (global-set-key (kbd "M-%") 'anzu-query-replace)
+  (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+  (set-face-attribute 'anzu-mode-line nil
+                      :foreground "yellow" :weight 'bold)
+  (define-key isearch-mode-map [remap isearch-query-replace]  #'anzu-isearch-query-replace)
+  (define-key isearch-mode-map [remap isearch-query-replace-regexp] #'anzu-isearch-query-replace-regexp)
+  )
+
+;; avy
+(global-set-key (kbd "M-j") 'avy-goto-word-1)
+(global-set-key (kbd "C-M-j") 'avy-goto-char)
 
 ;; dumb-jump
 (require 'dumb-jump)
@@ -79,27 +144,38 @@
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
   :ensure)
-;; ;(setq dumb-jump-mode t)
-;; ;(setq dumb-jump-selector 'ivy) ;; 候補選択をivyに任せます
-;; ;; (setq dumb-jump-use-visible-window nil)
-;; ;; (define-key global-map [(super d)] 'dumb-jump-go) ;; go-to-definition!
-;; ;; (define-key global-map [(super shift d)] 'dumb-jump-back)
-;; ;; これをしないとホームディレクトリ以下が検索対象になる
-;; (setq dumb-jump-default-project "")
-;; ;; 日本語を含むパスだとgit grepがちゃんと動かない…
-;; ;(setq dumb-jump-force-searcher 'rg)
-;; ;; 標準キーバインドを有効にする
-;; (dumb-jump-mode)
 
+;;==============================================
+;; Search / Jump (helm)
+;;==============================================
+(require 'ag)
+(require 'helm-config)
+;(helm-mode 1)
+(require 'helm-files)
+(require 'helm-ag)
+(defun helm-ag-project-root ()
+  (interactive)
+  (let ((rootdir (helm-ag--project-root)))
+    (unless rootdir
+      (error "Could not find the project root. Create a git, hg, or svn repository there first. "))
+    (helm-ag rootdir)))
+
+(defun helm-ag--project-root ()
+  (cl-loop for dir in '(".git/" ".hg/" ".svn/" ".git")
+           when (locate-dominating-file default-directory dir)
+           return it))
+(global-set-key (kbd "M-s /") 'helm-ag-project-root)
+
+;; ==============================================
 ;; company-mode
-                                        ;(with-eval-after-load 'company
+;; ==============================================
 (require 'company)
   (global-company-mode)
   (setq company-auto-expand t) ;; auto expand the first one
   (setq company-transformers '(company-sort-by-backend-importance)) ;; sort
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 2)
-  (setq company-selection-wrap-around t) 
+  (setq company-selection-wrap-around t)
   (setq completion-ignore-case t)
   (setq company-dabbrev-downcase nil)
   (global-set-key (kbd "C-M-i") 'company-complete)
@@ -127,8 +203,6 @@
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
                       :background "gray40")
-;  )
-
 
 ;; (require 'company-web-html)                          ; load company mode html backend
 ;; ;; and/or
@@ -158,54 +232,17 @@
 ;;                           (unless tern-mode (tern-mode))
 ;;                         (if tern-mode (tern-mode -1)))))))
 
-;; manual autocomplete
-;(define-key web-mode-map (kbd "M-SPC") 'company-complete)
+;; ==================================================
+;; undo
+;; ==================================================
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
 
 ;; ==================================================
-;; Indent
+;; Programming
 ;; ==================================================
-(setq c-default-style '((java-mode . "java") (other . "linux")))
-;(setq-default tab-width 2 indent-tabs-mode nil)
-;(setq c-basic-offset 2)
-
-;; インデントでタブを使わない
-(setq-default indent-tabs-mode nil)
-
-;; タブ, 全角スペース表示
-(require 'whitespace)
-(set-face-foreground 'whitespace-space "LightSlateGray")
-(set-face-background 'whitespace-space "DarkSlateGray")
-(set-face-foreground 'whitespace-tab "LightSlateGray")
-(set-face-background 'whitespace-tab "DarkSlateGray")
-
-;; 行末空白表示
-(defface my-face '((t (:background "DarkSlateGray"))) nil)
-(defvar my-face 'my-face)
-(defadvice font-lock-mode (before my-font-lock-mode ())
-     (font-lock-add-keywords
-           major-mode
-                 '(("[ \t]+$" 0 my-face append))))
-(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-(ad-activate 'font-lock-mode)
-
-;; insert a line break at the end of the file
-(setq require-final-newline t)
-
-;; ==================================================
-;; language
-;; ==================================================
-(set-language-environment 'Japanese)(prefer-coding-system 'utf-8)
-
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-;; (setq default-buffer-file-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
-
-;;(require 'undo-tree)
-;;(global-undo-tree-mode t)
-;;(global-set-key (kbd "C-x C-u") 'undo-tree-redo)
-
+;; ----- Web-mode -----
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css?\\'"    . web-mode))
@@ -221,7 +258,6 @@
 (add-to-list 'auto-mode-alist '("\\.sass?\\'"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 
-                                        ;(defun web-mode-hook ()
 (eval-after-load "web-mode"
   (add-hook 'web-mode-hook
             '(lambda ()
@@ -244,9 +280,6 @@
                (setq web-mode-tag-auto-close-style 2)
                ))
   )
-;  )
-;; (eval-after-load "web-mode"
-;;   (add-hook 'web-mode-hook 'web-mode-hook))
 
 (custom-set-faces
  '(web-mode-doctype-face           ((t (:foreground "#4A8ACA"))))
@@ -272,7 +305,7 @@
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'html-mode-hook 'rainbow-mode)
 
-;; yaml-mode
+;; ----- yaml-mode -----
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
@@ -282,37 +315,8 @@
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
-;; ;; helm
-(require 'ag)
-(require 'helm-config)
-;(helm-mode 1)
-(require 'helm-files)
-(require 'helm-ag)
-;; (setq helm-ag-base-command "ag --nocolor --nogroup -n")
-;; (global-set-key (kbd "M-s .") 'helm-ag)
-;; (global-set-key (kbd "M-s ,") 'helm-ag-pop-stack)
-;; (global-set-key (kbd "C-M-s") 'helm-ag-this-file)
-(defun helm-ag-project-root ()
-  (interactive)
-  (let ((rootdir (helm-ag--project-root)))
-    (unless rootdir
-      (error "Could not find the project root. Create a git, hg, or svn repository there first. "))
-    (helm-ag rootdir)))
-
-(defun helm-ag--project-root ()
-  (cl-loop for dir in '(".git/" ".hg/" ".svn/" ".git")
-           when (locate-dominating-file default-directory dir)
-           return it))
-(global-set-key (kbd "M-s /") 'helm-ag-project-root)
-
-;; do endなどの補完
-;; (require 'ruby-electric)
-;; (add-hook 'ruby-mode-hook '(lambda ()
-;;           (ruby-electric-mode t)))
-;(setq ruby-electric-expand-delimiters-list nil)
-
-;; 補完機能
-;; robe-modeの有効化とcompanyとの連携 https://qiita.com/kod314/items/9a56983f0d70f57420b1
+;; ----- ruby-mode ------
+;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
 (add-hook 'ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (eval-after-load 'company
@@ -336,13 +340,17 @@
       (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
       ))
 
+(require 'ruby-end)
+
+;; ================================================
 ;; git-gutter
+;; ================================================
 (require 'git-gutter)
 (global-git-gutter-mode t)
-;(git-gutter:linum-setup)
 
-;; fly-check
+;; ================================================
 ;; flycheck
+;; ================================================
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (add-hook 'ruby-mode-hook 'flycheck-mode)
@@ -351,14 +359,9 @@
 ;;       :init (global-flycheck-mode))
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
-;; ruby-block.el --- highlight matching block
-;(require 'ruby-block)
-;(ruby-block-mode t)
-;(setq ruby-block-highlight-toggle t)
-;; highlight end
-(require 'ruby-end)
-
-;;; theme ;;;
+;; ================================================
+;;  Theme
+;; ================================================
 ;(set-face-background 'linum "#2f2f2f")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
