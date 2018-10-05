@@ -141,8 +141,11 @@
   )
 
 ;; avy
-(global-set-key (kbd "M-j") 'avy-goto-word-1)
-(global-set-key (kbd "C-M-j") 'avy-goto-char)
+;; (global-set-key (kbd "M-j") 'avy-goto-word-1)
+;; (global-set-key (kbd "C-M-j") 'avy-goto-char)
+(global-set-key (kbd "M-g M-g") 'avy-goto-line)
+(global-set-key (kbd "M-g M-c") 'avy-goto-char-timer)
+(setq avy-background t)
 
 ;; dumb-jump
 (require 'dumb-jump)
@@ -158,9 +161,13 @@
 ;;==============================================
 ;; Search / Jump (helm)
 ;;==============================================
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-M-x-fuzzy-match t)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
 (require 'ag)
 (require 'helm-config)
-(helm-mode 1)
 (require 'helm-files)
 (require 'helm-ag)
 (defun helm-ag-project-root ()
