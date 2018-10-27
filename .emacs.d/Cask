@@ -61,6 +61,7 @@
 (depends-on "json-mode")
 (depends-on "less-css-mode")
 (depends-on "markdown-mode")
+(depends-on "matlab-mode")
 (depends-on "nyan-mode")
 (depends-on "ruby-mode")
 (depends-on "sass-mode")
