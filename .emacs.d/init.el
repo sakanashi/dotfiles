@@ -19,6 +19,65 @@
 (eaw-fullwidth)
 
 ;; ==================================================
+;; Theme
+;; ==================================================
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(setq custom-theme-directory "~/.emacs.d/themes")
+(setq zenburn-override-colors-alist
+      '(
+        ("zenburn-fg+1"     . "#FFFFEF")
+        ("zenburn-fg"       . "#DCDCCC")
+        ("zenburn-fg-1"     . "#bfbfbf")
+        ("zenburn-bg-2"     . "#000000")
+        ("zenburn-bg-1"     . "#2B2B2B")
+        ("zenburn-bg-05"    . "#383838")
+        ("zenburn-bg"       . "#000000")
+        ("zenburn-bg+05"    . "#494949")
+        ("zenburn-bg+1"     . "#4F4F4F")
+        ("zenburn-bg+2"     . "#5F5F5F")
+        ("zenburn-bg+3"     . "#6F6F6F")
+        ("zenburn-comment"  . "#9cabaf")
+        ("zenburn-region"   . "#4a708b")
+        ("zenburn-red+2"    . "#FF738A")
+        ("zenburn-red+1"    . "#FF738A")
+        ("zenburn-red"      . "#FF738A")
+        ("zenburn-red-1"    . "#FF738A")
+        ("zenburn-red-2"    . "#FF738A")
+        ("zenburn-red-3"    . "#FF738A")
+        ("zenburn-red-4"    . "#FF738A")
+        ("zenburn-red-5"    . "#FF738A")
+        ("zenburn-red-6"    . "#FF738A")
+        ("zenburn-orange"   . "#FF738A")
+        ("zenburn-yellow"   . "#FFDA09")
+        ("zenburn-yellow-1" . "#FFDA09")
+        ("zenburn-yellow-2" . "#FFDA09")
+        ("zenburn-green-5"  . "#76DF28")
+        ("zenburn-green-4"  . "#76DF28")
+        ("zenburn-green-3"  . "#76DF28")
+        ("zenburn-green-2"  . "#76DF28")
+        ("zenburn-green-1"  . "#76DF28")
+        ("zenburn-green"    . "#76DF28")
+        ("zenburn-green+1"  . "#76DF28")
+        ("zenburn-green+2"  . "#76DF28")
+        ("zenburn-green+3"  . "#76DF28")
+        ("zenburn-green+4"  . "#76DF28")
+        ("zenburn-cyan"     . "#6FC3B7")
+        ("zenburn-blue+3"   . "#2BB2D6")
+        ("zenburn-blue+2"   . "#2BB2D6")
+        ("zenburn-blue+1"   . "#2BB2D6")
+        ("zenburn-blue"     . "#2BB2D6")
+        ("zenburn-blue-1"   . "#2BB2D6")
+        ("zenburn-blue-2"   . "#2BB2D6")
+        ("zenburn-blue-3"   . "#2BB2D6")
+        ("zenburn-blue-4"   . "#2BB2D6")
+        ("zenburn-blue-5"   . "#2BB2D6")
+        ("zenburn-magenta"  . "#A980F5")
+        ))
+; (load-theme 'sakanashi t)
+; (load-theme 'qiita t)
+(load-theme 'zenburn t)
+
+;; ==================================================
 ;; Looks
 ;; ==================================================
 ;; line-number
@@ -50,6 +109,16 @@
 ;; auto insert pair bracket
 (electric-pair-mode 1)
 
+;; color
+(require 'kurecolor)
+(use-package kurecolor
+  :bind (("<f7>" . kurecolor-increase-hue-by-step)
+         ("M-<f7>" . kurecolor-decrease-hue-by-step)
+         ("<f8>" . kurecolor-increase-saturation-by-step)
+         ("M-<f8>" . kurecolor-decrease-saturation-by-step)
+         ("<f9>" . kurecolor-increase-brightness-by-step)
+         ("M-<f9>" . kurecolor-decrease-brightness-by-step)))
+
 ;; rainbow-delimiters
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -58,7 +127,7 @@
 (setq sml/theme 'respectful)
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
-(set-face-background 'mode-line "color-236")
+(set-face-background 'mode-line "color-232")
 
 ;; ==================================================
 ;; Indent
@@ -261,6 +330,29 @@
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
 ;; ==================================================
+;; Multiple cursors
+;; ==================================================
+;; multiple-cursors & smartrep
+(require 'multiple-cursors)
+(require 'region-bindings-mode)
+(region-bindings-mode-enable)
+
+(global-set-key (kbd "C-M-m") 'mc/edit-lines)
+(define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
+(define-key region-bindings-mode-map "d" 'mc/mark-all-dwim)
+(define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
+(define-key region-bindings-mode-map "N" 'mc/mark-previous-like-this)
+(define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
+(define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
+(define-key region-bindings-mode-map "u" 'mc/unmark-next-like-this)
+(define-key region-bindings-mode-map "U" 'mc/unmark-previous-like-this)
+(define-key region-bindings-mode-map "s" 'mc/skip-to-next-like-this)
+(define-key region-bindings-mode-map "S" 'mc/skip-to-previous-like-this)
+(define-key region-bindings-mode-map "i" 'mc/insert-numbers)
+(define-key region-bindings-mode-map "h" 'mc-hide-unmatched-lines-mode)
+(define-key mc/keymap (kbd "C-c h") 'mc-hide-unmatched-lines-mode)
+
+;; ==================================================
 ;; Programming
 ;; ==================================================
 ;; ----- Web-mode -----
@@ -302,29 +394,12 @@
                ))
   )
 
-(custom-set-faces
- '(web-mode-doctype-face           ((t (:foreground "#4A8ACA"))))
- '(web-mode-html-tag-face          ((t (:foreground "#4A8ACA"))))
- '(web-mode-html-tag-bracket-face  ((t (:foreground "#4A8ACA"))))
- '(web-mode-html-attr-name-face    ((t (:foreground "#87CEEB"))))
- '(web-mode-html-attr-equal-face   ((t (:foreground "#FFFFFF"))))
- '(web-mode-html-attr-value-face   ((t (:foreground "#D78181"))))
- '(web-mode-comment-face           ((t (:foreground "#587F35"))))
- '(web-mode-server-comment-face    ((t (:foreground "#587F35"))))
-
- '(web-mode-css-at-rule-face       ((t (:foreground "#DFCF44"))))
- '(web-mode-comment-face           ((t (:foreground "#587F35"))))
- '(web-mode-css-selector-face      ((t (:foreground "#DFCF44"))))
- '(web-mode-css-pseudo-class       ((t (:foreground "#DFCF44"))))
- '(web-mode-css-property-name-face ((t (:foreground "#87CEEB"))))
- '(web-mode-css-string-face        ((t (:foreground "#D78181"))))
- )
-
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'less-mode-hook 'rainbow-mode)
 (add-hook 'web-mode-hook 'rainbow-mode)
 (add-hook 'html-mode-hook 'rainbow-mode)
+(add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
 
 ;; ----- yaml-mode -----
 (require 'yaml-mode)
@@ -383,27 +458,11 @@
 ;; ================================================
 ;;  Theme
 ;; ================================================
-;(set-face-background 'linum "#2f2f2f")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (zenburn-theme yasnippet yaml-mode web-mode use-package tss tide solarized-theme smex smartparens smart-mode-line scss-mode sass-mode ruby-end ruby-electric robe projectile prodigy prettier-js powerline popwin pallet nyan-mode multiple-cursors moe-theme js2-mode idle-highlight-mode htmlize highlight-symbol groovy-mode gitignore-mode gitconfig-mode git-gutter flycheck-cask expand-region exec-path-from-shell dumb-jump drag-stuff dockerfile-mode cyberpunk-theme company-web color-theme coffee-mode avy anzu adoc-mode))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "brightwhite" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(font-lock-comment-face ((t (:foreground "color-144" :slant italic))))
- '(font-lock-string-face ((t (:foreground "green"))))
- '(font-lock-variable-name-face ((t (:foreground "yellow"))))
- '(hl-line ((t (:background "color-235"))))
- '(shadow ((t (:foreground "grey70")))))
+    (kurecolor hexrgb zenburn-theme yasnippet yaml-mode web-mode use-package tss tide solarized-theme smex smartparens smart-mode-line scss-mode sass-mode ruby-end ruby-electric robe projectile prodigy prettier-js powerline popwin pallet nyan-mode multiple-cursors moe-theme js2-mode idle-highlight-mode htmlize highlight-symbol groovy-mode gitignore-mode gitconfig-mode git-gutter flycheck-cask expand-region exec-path-from-shell dumb-jump drag-stuff dockerfile-mode cyberpunk-theme company-web color-theme coffee-mode avy anzu adoc-mode))))

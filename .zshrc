@@ -7,7 +7,7 @@ colors
 export LANG=ja_JP.UTF-8
 export OUTPUT_CHARSET=utf-8
 # export LV="-Ou8"
-# export EDITOR="env TERM=xterm-256color emacsclient -t"
+export EDITOR="env TERM=xterm-256color emacsclient -t"
 # export GREP_OPTIONS="--binary-files=without-match --color=auto"
 export PATH=$HOME/local/bin:$PATH
 export PATH=$PATH:$HOME/.cask/bin
@@ -88,11 +88,12 @@ function change_tmux_prefix {
 alias prefix='$(change_tmux_prefix)'
 
 ### color ###
-if [ -f ~/.dircolors.ansi-dark ]; then
+dircolor_file="~/.dircolors.ansi-dark"
+if [ -f $dircolor_file ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors ~/.dir_colors)
+        eval $(dircolors $dircolor_file)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors ~/.dir_colors)
+        eval $(gdircolors $dircolor_file)
     fi
 fi
 

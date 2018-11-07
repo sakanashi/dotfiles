@@ -164,7 +164,7 @@ NORMAL 00
 # normal file
 FILE 00
 # directory
-DIR 34
+DIR 01;04;34
 # 777 directory
 OTHER_WRITABLE 34;40
 # symbolic link
@@ -188,13 +188,13 @@ ORPHAN  05;37;41
 MISSING 05;37;41
 
 # files with execute permission
-EXEC 01;31  # Unix
-.cmd 01;31  # Win
-.exe 01;31  # Win
-.com 01;31  # Win
-.bat 01;31  # Win
-.reg 01;31  # Win
-.app 01;31  # OSX
+EXEC 04;31  # Unix
+.cmd 04;31  # Win
+.exe 04;31  # Win
+.com 04;31  # Win
+.bat 04;31  # Win
+.reg 04;31  # Win
+.app 04;31  # OSX
 
 #############################################################################
 ### By extension

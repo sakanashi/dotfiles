@@ -7,3 +7,4 @@ TAGS
 .git
 .emacs.d/.cask
 .emacs.d/elpa
+.emacs.d/.mc-lists.el
