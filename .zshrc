@@ -114,6 +114,7 @@ alias grepc='grep -nr --color=always --with-filename'
 alias grep="grep -n --color=auto "
 alias less='less -qR'
 alias gg='git grep -n --break  --color=auto'
+alias tree='tree -N'
 # if [[ -x `which colordiff` ]]; then
 #       alias diff='colordiff'
 # fi
