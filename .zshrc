@@ -88,12 +88,12 @@ function change_tmux_prefix {
 alias prefix='$(change_tmux_prefix)'
 
 ### color ###
-dircolor_file="~/.dircolors.ansi-dark"
-if [ -f $dircolor_file ]; then
+DIRCOLOR_FILE=~/.dircolors.ansi-dark
+if [ -f $DIRCOLOR_FILE ]; then
     if type dircolors > /dev/null 2>&1; then
-        eval $(dircolors $dircolor_file)
+        eval $(dircolors $DIRCOLOR_FILE)
     elif type gdircolors > /dev/null 2>&1; then
-        eval $(gdircolors $dircolor_file)
+        eval $(gdircolors $DIRCOLOR_FILE)
     fi
 fi
 
