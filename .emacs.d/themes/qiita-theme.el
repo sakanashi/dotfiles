@@ -276,7 +276,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(isearch-fail ((t (:foreground ,fg :background ,red-4))))
    `(lazy-highlight ((t (:foreground ,yellow-2 :weight bold :background ,bg-05))))
 
-   `(menu ((t (:foreground ,fg :background ,bg))))
+   `(menu ((t (:foreground ,fg :background ,"color-232"))))
    `(minibuffer-prompt ((t (:foreground ,yellow))))
    `(mode-line
      ((,class (:foreground ,green+1
