@@ -17,6 +17,9 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'eaw)
 (eaw-fullwidth)
+;; (require 'initchart)
+;; (initchart-record-execution-time-of load file)
+;; (initchart-record-execution-time-of require feature)
 
 ;; ==================================================
 ;; Theme
@@ -60,14 +63,14 @@
 (electric-pair-mode 1)
 
 ;; color
-(require 'kurecolor)
-(use-package kurecolor
-  :bind (("<f7>" . kurecolor-increase-hue-by-step)
-         ("M-<f7>" . kurecolor-decrease-hue-by-step)
-         ("<f8>" . kurecolor-increase-saturation-by-step)
-         ("M-<f8>" . kurecolor-decrease-saturation-by-step)
-         ("<f9>" . kurecolor-increase-brightness-by-step)
-         ("M-<f9>" . kurecolor-decrease-brightness-by-step)))
+;; (require 'kurecolor)
+;; (use-package kurecolor
+;;   :bind (("<f7>" . kurecolor-increase-hue-by-step)
+;;          ("M-<f7>" . kurecolor-decrease-hue-by-step)
+;;          ("<f8>" . kurecolor-increase-saturation-by-step)
+;;          ("M-<f8>" . kurecolor-decrease-saturation-by-step)
+;;          ("<f9>" . kurecolor-increase-brightness-by-step)
+;;          ("M-<f9>" . kurecolor-decrease-brightness-by-step)))
 
 ;; rainbow-delimiters
 (require 'rainbow-delimiters)
@@ -308,7 +311,7 @@
 ;; Programming
 ;; ==================================================
 ;; ----- Web-mode -----
-(require 'web-mode)
+(autoload 'web-mode "web-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css?\\'"    . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
@@ -354,7 +357,7 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
 
 ;; ----- yaml-mode -----
-(require 'yaml-mode)
+(autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.dig$" . yaml-mode))
@@ -364,6 +367,7 @@
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
 ;; ----- ruby-mode ------
+(autoload 'enh-ruby-mode "enh-ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 ;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
@@ -387,9 +391,9 @@
       (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ;; C-sで絞り込む
       (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
       (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete) ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
+      (require 'ruby-end)
       ))
 
-(require 'ruby-end)
 
 ;; ;; ------ sql-mode -----
 ;; ;; (eval-after-load "sql"
