@@ -183,7 +183,7 @@ defining them in this alist."
     ("green+2"  . "#76DF28")
     ("green+3"  . "#76DF28")
     ("green+4"  . "#76DF28")
-    ("cyan"     . "#6FC3B7")
+    ("cyan"     . "#55d6c3")
     ("blue+3"   . "#2BB2D6")
     ("blue+2"   . "#2BB2D6")
     ("blue+1"   . "#2BB2D6")
@@ -306,7 +306,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(font-lock-regexp-grouping-construct ((t (:foreground ,yellow :weight bold))))
    `(font-lock-regexp-grouping-backslash ((t (:foreground ,green :weight bold))))
    `(font-lock-string-face ((t (:foreground ,blue))))
-   `(font-lock-type-face ((t (:foreground ,yellow-1))))
+   `(font-lock-type-face ((t (:foreground ,green-1))))
    `(font-lock-variable-name-face ((t (:foreground ,orange))))
    `(font-lock-warning-face ((t (:foreground ,yellow-2 :weight bold))))
 
@@ -1528,6 +1528,9 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(web-mode-symbol-face ((t (:inherit font-lock-constant-face))))
    `(web-mode-warning-face ((t (:inherit font-lock-warning-face))))
    `(web-mode-whitespaces-face ((t (:background ,red))))
+;;;;; enh-ruby-mode
+   `(enh-ruby-op-face ((t (:foreground ,red))))
+   `(enh-ruby-string-delimiter-face ((t (:foreground ,blue))))
 ;;;;; whitespace-mode
    `(whitespace-space ((t (:background ,bg+1 :foreground ,bg+1))))
    `(whitespace-hspace ((t (:background ,bg+1 :foreground ,bg+1))))

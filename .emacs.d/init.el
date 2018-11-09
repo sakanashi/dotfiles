@@ -362,13 +362,15 @@
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
 ;; ----- ruby-mode ------
+(add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+(setq set-face-attributes)
 ;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
-(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'enh-ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 
-(add-hook 'ruby-mode-hook (lambda()
+(add-hook 'enh-ruby-mode-hook (lambda()
       (company-mode)
       (setq company-auto-expand t)
       (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
@@ -387,6 +389,39 @@
       ))
 
 (require 'ruby-end)
+
+;; ;; ------ sql-mode -----
+;; ;; (eval-after-load "sql"
+;; ;;   '(load-library "sql-indent"))
+;; ;; C-c C-c : 'sql-send-paragraph
+;; ;; C-c C-r : 'sql-send-region
+;; ;; C-c C-s : 'sql-send-string
+;; ;; C-c C-b : 'sql-send-buffer
+;; (require 'sql)
+
+;; (add-hook 'sql-interactive-mode-hook
+;;           '(lambda ()
+;;               (interactive)
+;;               ;; (set-buffer-process-coding-system 'sjis-unix 'sjis-unix )
+;;               ;; (setq show-trailing-whitespace nil)))
+;;               ;; (setq tab-width 4)
+;;               ;; (c-set-style "bsd")             ; c-basic-offset を4に設定し、いくつか追加する
+;;               ;; (c-set-offset 'case-label '+)   ; PG に合わせてcase 文のインデントを変更する
+;;               ;; (setq indent-tabs-mode t)      ; インデント処理時にタブを保持させる
+;;               ))
+
+;; ;; starting SQL mode loading sql-indent / sql-complete
+;; (eval-after-load "sql"
+;;   '(progn
+;;      (load-library "sql-indent")
+;;      (load-library "sql-complete")
+;;      (load-library "sql-transform")))
+
+;; (setq auto-mode-alist
+;;       (cons '("\\.sql$" . sql-mode) auto-mode-alist))
+
+;; (sql-set-product-feature
+;;  'ms :font-lock 'sql-mode-ms-font-lock-keywords)
 
 ;; ================================================
 ;; git-gutter
