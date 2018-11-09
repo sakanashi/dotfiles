@@ -363,7 +363,6 @@
 
 ;; ----- ruby-mode ------
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-(setq set-face-attributes)
 ;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
