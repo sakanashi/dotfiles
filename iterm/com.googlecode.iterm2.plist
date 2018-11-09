@@ -889,6 +889,11 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>632 229 445 270 0 0 1280 778 </string>
 	<key>NSWindow Frame Preferences</key>
@@ -898,7 +903,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>320 117 640 622 0 0 1280 777 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>100 236 918 452 0 0 1280 777 </string>
+	<string>99 231 928 394 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 4 1280 773 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -930,52 +935,52 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.4683394730091095</real>
+				<real>0.53725490196078429</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.35115522146224976</real>
+				<real>0.44705882352941179</real>
 				<key>Red Component</key>
-				<real>0.98826968669891357</real>
+				<real>1</real>
 			</dict>
 			<key>Ansi 10 Color</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.016361404210329056</real>
+				<real>0.15294117647058825</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.74366104602813721</real>
+				<real>0.87450980392156863</real>
 				<key>Red Component</key>
-				<real>0.28408914804458618</real>
+				<real>0.46274509803921571</real>
 			</dict>
 			<key>Ansi 11 Color</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.21942076086997986</real>
+				<real>0.031372549019607843</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.79428017139434814</real>
+				<real>0.85490196078431369</real>
 				<key>Red Component</key>
-				<real>0.90005481243133545</real>
+				<real>0.99607843137254903</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.80124711990356445</real>
+				<real>0.8600921630859375</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.66607987880706787</real>
+				<real>0.71065576087793914</real>
 				<key>Red Component</key>
-				<real>0.21559321880340576</real>
+				<real>0.13425816083326936</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
@@ -995,13 +1000,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.75936353206634521</real>
+				<real>0.71372549019607845</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.65882807970046997</real>
+				<real>0.76470588235294112</real>
 				<key>Red Component</key>
-				<real>0.14579027891159058</real>
+				<real>0.43529411764705883</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -1021,13 +1026,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.12180395424365997</real>
+				<real>0.0</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.86705809831619263</real>
+				<real>0.77254901960784317</real>
 				<key>Red Component</key>
-				<real>0.40521588921546936</real>
+				<real>0.33333333333333331</real>
 			</dict>
 			<key>Ansi 3 Color</key>
 			<dict>
@@ -1047,13 +1052,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.80117976665496826</real>
+				<real>0.83921568627450982</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.63840228319168091</real>
+				<real>0.72156862745098038</real>
 				<key>Red Component</key>
-				<real>0.15346372127532959</real>
+				<real>0.25490196078431371</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
@@ -1073,13 +1078,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.65981429815292358</real>
+				<real>0.76774697386049218</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.72166597843170166</real>
+				<real>0.839752197265625</real>
 				<key>Red Component</key>
-				<real>0.37224653363227844</real>
+				<real>0.335716363042593</real>
 			</dict>
 			<key>Ansi 7 Color</key>
 			<dict>
@@ -1567,13 +1572,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.67799997329711914</real>
+				<real>0.71764705882352942</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.27000001072883606</real>
+				<real>0.47843137254901963</real>
 				<key>Red Component</key>
-				<real>0.023000000044703484</real>
+				<real>0.20000000000000001</real>
 			</dict>
 			<key>Log Directory</key>
 			<string></string>
@@ -2805,7 +2810,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-11-04T05:57:54Z</date>
+	<date>2018-11-08T00:26:16Z</date>
 	<key>SUSkippedVersion</key>
 	<string>3.2.3beta1</string>
 	<key>SavePasteHistory</key>
@@ -2851,9 +2856,9 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.5beta1</string>
+	<string>3.2.6beta2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
 	<false/>
 </dict>
