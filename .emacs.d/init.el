@@ -86,6 +86,8 @@
 
 ;; not use tab for indent
 (setq-default indent-tabs-mode nil)
+(require 'smart-tab)
+(setq smart-tab-using-hippie-expand t)
 
 ;; ==================================================
 ;; which-key

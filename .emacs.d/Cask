@@ -42,6 +42,7 @@
 (depends-on "s")
 (depends-on "smart-mode-line")
 (depends-on "smartparens")
+(depends-on "smart-tab")
 (depends-on "smex")
 ; (depends-on "sql-complete")
 ; (depends-on "sql-indent")
