@@ -1,39 +1,10 @@
 ;;; qiita-theme.el --- A low contrast color theme for Emacs.
 
-;; Copyright (C) 2011-2018 Bozhidar Batsov
-
-;; Author:
-;; URL:
-;; Version:
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-
-;; A port of the popular Vim theme Qiita for Emacs 24+, built on top
-;; of the new built-in theme support in Emacs 24.
-
-;;; Credits:
-
-;;; Code:
-
 (deftheme qiita "The Qiita color theme")
 
 (defgroup qiita-theme nil
   "Qiita theme."
   :prefix "qiita-theme-"
-  :link '(url-link :tag "GitHub" "http://github.com/bbatsov/emacs")
   :tag "Qiita theme")
 
 ;;;###autoload
@@ -98,54 +69,6 @@ defining them in this alist."
 ;;; Color Palette
 
 (defvar default-colors-alist
-  ;;; --- original (zenburn) ---
-  ;; '(("fg+1"     . "#FFFFEF")
-  ;;   ("fg"       . "#DCDCCC")
-  ;;   ("fg-1"     . "#656555")
-  ;;   ("bg-2"     . "#000000")
-  ;;   ("bg-1"     . "#2B2B2B")
-  ;;   ("bg-05"    . "#383838")
-  ;;   ("bg"       . "#3F3F3F")
-  ;;   ("bg+05"    . "#494949")
-  ;;   ("bg+1"     . "#4F4F4F")
-  ;;   ("bg+2"     . "#5F5F5F")
-  ;;   ("bg+3"     . "#6F6F6F")
-  ;;   ("red+2"    . "#ECB3B3")
-  ;;   ("red+1"    . "#DCA3A3")
-  ;;   ("red"      . "#CC9393")
-  ;;   ("red-1"    . "#BC8383")
-  ;;   ("red-2"    . "#AC7373")
-  ;;   ("red-3"    . "#9C6363")
-  ;;   ("red-4"    . "#8C5353")
-  ;;   ("red-5"    . "#7C4343")
-  ;;   ("red-6"    . "#6C3333")
-  ;;   ("orange"   . "#DFAF8F")
-  ;;   ("yellow"   . "#F0DFAF")
-  ;;   ("yellow-1" . "#E0CF9F")
-  ;;   ("yellow-2" . "#D0BF8F")
-  ;;   ("green-5"  . "#2F4F2F")
-  ;;   ("green-4"  . "#3F5F3F")
-  ;;   ("green-3"  . "#4F6F4F")
-  ;;   ("green-2"  . "#5F7F5F")
-  ;;   ("green-1"  . "#6F8F6F")
-  ;;   ("green"    . "#7F9F7F")
-  ;;   ("green+1"  . "#8FB28F")
-  ;;   ("green+2"  . "#9FC59F")
-  ;;   ("green+3"  . "#AFD8AF")
-  ;;   ("green+4"  . "#BFEBBF")
-  ;;   ("cyan"     . "#93E0E3")
-  ;;   ("blue+3"   . "#BDE0F3")
-  ;;   ("blue+2"   . "#ACE0E3")
-  ;;   ("blue+1"   . "#94BFF3")
-  ;;   ("blue"     . "#8CD0D3")
-  ;;   ("blue-1"   . "#7CB8BB")
-  ;;   ("blue-2"   . "#6CA0A3")
-  ;;   ("blue-3"   . "#5C888B")
-  ;;   ("blue-4"   . "#4C7073")
-  ;;   ("blue-5"   . "#366060")
-  ;;   ("magenta"  . "#DC8CC3"))
-
-  ;; --- Qiita color ---
   '(
     ("fg+1"     . "#FFFFEF")
     ("fg"       . "#DCDCCC")
