@@ -115,6 +115,7 @@ alias grep="grep -n --color=auto "
 alias less='less -qR'
 alias gg='git grep -n --break  --color=auto'
 alias tree='tree -N'
+alias clockout="date -v+8H -v+30M"
 # if [[ -x `which colordiff` ]]; then
 #       alias diff='colordiff'
 # fi
