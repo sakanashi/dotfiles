@@ -318,9 +318,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'"   . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js?\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss?\\'"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.sass?\\'"   . web-mode))
@@ -348,6 +346,16 @@
                (setq web-mode-tag-auto-close-style 2)
                ))
   )
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook
+          (lambda ()
+             (setq my-js-mode-indent-num 2)
+             (setq js2-basic-offset my-js-mode-indent-num)
+             (setq js-switch-indent-offset my-js-mode-indent-num)
+             (flycheck-select-checker 'javascript-eslint)
+             (flycheck-mode t)
+             ))
 
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
@@ -439,11 +447,8 @@
 ;; ================================================
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
-(add-hook 'ruby-mode-hook 'flycheck-mode)
-;; (use-package flycheck
-;;     :ensure t
-;;       :init (global-flycheck-mode))
-;(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
 
 ;; ================================================
 ;;  Theme

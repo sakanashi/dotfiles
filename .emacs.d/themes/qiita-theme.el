@@ -572,15 +572,15 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(flycheck-error
      ((((supports :underline (:style wave)))
        (:underline (:style wave :color ,red-1) :inherit unspecified))
-      (t (:foreground ,red-1 :weight bold :underline t))))
+      (t (:foreground ,red-1 :background ,bg+1 :weight bold :underline t))))
    `(flycheck-warning
      ((((supports :underline (:style wave)))
        (:underline (:style wave :color ,yellow) :inherit unspecified))
-      (t (:foreground ,yellow :weight bold :underline t))))
+      (t (:foreground ,yellow :background ,bg+1 :weight bold :underline t))))
    `(flycheck-info
      ((((supports :underline (:style wave)))
        (:underline (:style wave :color ,cyan) :inherit unspecified))
-      (t (:foreground ,cyan :weight bold :underline t))))
+      (t (:foreground ,cyan :background ,bg+1 :weight bold :underline t))))
    `(flycheck-fringe-error ((t (:foreground ,red-1 :weight bold))))
    `(flycheck-fringe-warning ((t (:foreground ,yellow :weight bold))))
    `(flycheck-fringe-info ((t (:foreground ,cyan :weight bold))))
