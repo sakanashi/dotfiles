@@ -27,7 +27,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq custom-theme-directory "~/.emacs.d/themes")
 (load-theme 'qiita t)
-
+;(load-theme 'monokai t)
 ;; ==================================================
 ;; Looks
 ;; ==================================================
@@ -47,6 +47,7 @@
 
 ;; line hilight
 (global-hl-line-mode t)
+;(setq hl-line-face 'underline) ; 下線
 
 ;; 対応する括弧を表示
 (show-paren-mode t)
@@ -347,16 +348,6 @@
                ))
   )
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js2-mode-hook
-          (lambda ()
-             (setq my-js-mode-indent-num 2)
-             (setq js2-basic-offset my-js-mode-indent-num)
-             (setq js-switch-indent-offset my-js-mode-indent-num)
-             (flycheck-select-checker 'javascript-eslint)
-             (flycheck-mode t)
-             ))
-
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 (add-hook 'less-mode-hook 'rainbow-mode)
@@ -449,6 +440,25 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook ;#'add-node-modules-path
+             (lambda ()
+               (setq my-js-mode-indent-num 2)
+               (setq js2-basic-offset my-js-mode-indent-num)
+               (setq js-switch-indent-offset my-js-mode-indent-num)
+               '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+               (flycheck-select-checker 'javascript-eslint)
+;               (flycheck-mode t)
+             )))
+;; (add-hook 'js2-mode-hook
+;;           (lambda ()
+;;              (setq my-js-mode-indent-num 2)
+;;              (setq js2-basic-offset my-js-mode-indent-num)
+;;              (setq js-switch-indent-offset my-js-mode-indent-num)
+;;              (flycheck-select-checker 'javascript-eslint)
+;;  ;            (flycheck-mode t)
+;;              ))
 
 ;; ================================================
 ;;  Theme

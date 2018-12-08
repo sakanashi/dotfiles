@@ -126,7 +126,7 @@ alias clockout="date -v+8H -v+30M"
     eval "$(rbenv init -)"
 
 ## nodebrew ##
-if [[ -f ~/.nodebrew/nodebrew ]]; then
+if [[ -d ~/.nodebrew ]]; then
     export PATH=$HOME/.nodebrew/current/bin:$PATH
     #    nodebrew use v0.8
 fi
