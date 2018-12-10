@@ -115,6 +115,7 @@ alias grep="grep -n --color=auto "
 alias less='less -qR'
 alias gg='git grep -n --break  --color=auto'
 alias tree='tree -N'
+alias clockout="date -v+8H -v+30M"
 # if [[ -x `which colordiff` ]]; then
 #       alias diff='colordiff'
 # fi
@@ -125,10 +126,18 @@ alias tree='tree -N'
     eval "$(rbenv init -)"
 
 ## nodebrew ##
-if [[ -f ~/.nodebrew/nodebrew ]]; then
+if [[ -d ~/.nodebrew ]]; then
     export PATH=$HOME/.nodebrew/current/bin:$PATH
-    #    nodebrew use v0.8
 fi
+
+### pyenv ###
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+[[ -d ~/.pyenv ]] && \
+    export PYENV_ROOT="$HOME/.pyenv" && \
+    export PATH="$PYENV_ROOT/bin:$PATH" && \
+    eval "$(pyenv init -)"
 
 ### ssh-agent ###
 agent="$HOME/.ssh/agent"
