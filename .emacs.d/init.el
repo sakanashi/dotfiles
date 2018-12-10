@@ -95,12 +95,14 @@
 ;; ==================================================
 ;; which-key
 ;; ==================================================
-(require 'which-key)
-(which-key-setup-side-window-bottom)        ; miniBuffer
-;; (which-key-setup-side-window-right)         ; right
-;; (which-key-setup-side-window-right-bottom)  ; both
-(which-key-mode 1)
-(setq which-key-idle-delay 0.5)
+(when (version<= "24.4" emacs-version )
+  (require 'which-key)
+  (which-key-setup-side-window-bottom)        ; miniBuffer
+  ;; (which-key-setup-side-window-right)         ; right
+  ;; (which-key-setup-side-window-right-bottom)  ; both
+  (which-key-mode 1)
+  (setq which-key-idle-delay 0.5)
+  )
 
 ;; =================================================
 ;; color with spaces and tabs
@@ -185,31 +187,33 @@
 ;;==============================================
 ;; Search / Jump (helm)
 ;;==============================================
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-;; For find-file etc.
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-;; For helm-find-files etc.
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(when (version<= "24.4" emacs-version )
+  (helm-mode 1)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (setq helm-M-x-fuzzy-match t)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  ;; For find-file etc.
+  (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+  ;; For helm-find-files etc.
+  (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
-(require 'ag)
-(require 'helm-config)
-(require 'helm-files)
-(require 'helm-ag)
-(defun helm-ag-project-root ()
-  (interactive)
-  (let ((rootdir (helm-ag--project-root)))
-    (unless rootdir
-      (error "Could not find the project root. Create a git, hg, or svn repository there first. "))
-    (helm-ag rootdir)))
+  (require 'ag)
+  (require 'helm-config)
+  (require 'helm-files)
+  (require 'helm-ag)
+  (defun helm-ag-project-root ()
+    (interactive)
+    (let ((rootdir (helm-ag--project-root)))
+      (unless rootdir
+        (error "Could not find the project root. Create a git, hg, or svn repository there first. "))
+      (helm-ag rootdir)))
 
-(defun helm-ag--project-root ()
-  (cl-loop for dir in '(".git/" ".hg/" ".svn/" ".git")
-           when (locate-dominating-file default-directory dir)
-           return it))
-(global-set-key (kbd "M-s /") 'helm-ag-project-root)
+  (defun helm-ag--project-root ()
+    (cl-loop for dir in '(".git/" ".hg/" ".svn/" ".git")
+             when (locate-dominating-file default-directory dir)
+             return it))
+  (global-set-key (kbd "M-s /") 'helm-ag-project-root)
+  )
 
 ;; ==============================================
 ;; company-mode
@@ -370,10 +374,12 @@
 (autoload 'enh-ruby-mode "enh-ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 ;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
-(add-hook 'enh-ruby-mode-hook 'robe-mode)
-(autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
+(when (version<= "24.4" emacs-version )
+  (add-hook 'enh-ruby-mode-hook 'robe-mode)
+  (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
+  (eval-after-load 'company
+    '(push 'company-robe company-backends))
+  )
 
 (add-hook 'enh-ruby-mode-hook (lambda()
       (company-mode)

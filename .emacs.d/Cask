@@ -20,8 +20,8 @@
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "git-gutter")
-(depends-on "helm")
-(depends-on "helm-ag")
+; (depends-on "helm") ; NG: 24.3
+; (depends-on "helm-ag") ; NG: 24.3
 (depends-on "highlight-symbol")
 (depends-on "hl-line")
 (depends-on "htmlize")
@@ -37,7 +37,7 @@
 (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
 (depends-on "region-bindings-mode")
-(depends-on "robe")
+;(depends-on "robe") ; NG: 24.3
 (depends-on "ruby-end")
 (depends-on "s")
 (depends-on "smart-mode-line")
@@ -51,7 +51,7 @@
 (depends-on "tss")
 (depends-on "undo-tree")
 (depends-on "use-package")
-(depends-on "which-key")
+;(depends-on "which-key") ; NG: 24.3
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
 
