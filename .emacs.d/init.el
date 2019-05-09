@@ -393,8 +393,19 @@
       (require 'ruby-end)
       ))
 
+;; ----- markdown-mode -----
+(eval-after-load "markdown-mode"
+  (add-hook 'markdown-mode-hook
+            '(lambda ()
+               (setq whitespace-action '(nil))
+               )))
+;; ----- adoc-mode -----
+(autoload 'adoc-mode "adoc-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
 
 ;; ;; ------ sql-mode -----
+(add-to-list 'auto-mode-alist '("\\.sql.erb$"       . sql-mode))
+(add-to-list 'auto-mode-alist '("\\.sql.erb\\'"     . sql-mode))
 ;; ;; (eval-after-load "sql"
 ;; ;;   '(load-library "sql-indent"))
 ;; ;; C-c C-c : 'sql-send-paragraph
@@ -428,6 +439,20 @@
 ;;  'ms :font-lock 'sql-mode-ms-font-lock-keywords)
 
 ;; ================================================
+;; highlight
+;; ================================================
+(require 'highlight-symbol)
+;; 0.3秒後自動ハイライトされるようになる
+(setq highlight-symbol-idle-delay 0.3)
+;(setq highlight-symbol-colors '("yellow"))
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+;;; 自動ハイライトをしたいならば
+(add-hook 'enh-ruby-mode-hook 'highlight-symbol-mode)
+(add-hook 'yaml-mode-hook 'highlight-symbol-mode)
+(add-hook 'json-mode-hook 'highlight-symbol-mode)
+(add-hook 'sql-mode-hook 'highlight-symbol-mode)
+
+;; ================================================
 ;; git-gutter
 ;; ================================================
 (require 'git-gutter)
@@ -459,7 +484,33 @@
 ;;              (flycheck-select-checker 'javascript-eslint)
 ;;  ;            (flycheck-mode t)
 ;;              ))
+(flycheck-define-checker textlint
+  "A linter for prose."
+  :command ("textlint" "--format" "unix" source-inplace)
+ :error-patterns
+  ((warning line-start (file-name) ":" line ":" column ": "
+            (id (one-or-more (not (any " "))))
+            (message (one-or-more not-newline)
+                     (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+            line-end))
+  :modes (text-mode markdown-mode))
 
+(add-to-list 'flycheck-checkers 'textlint)
+(add-hook 'markdown-mode-hook 'flycheck-mode)
+
+(flycheck-define-checker textlint
+  "A linter for prose."
+  :command ("textlint" "--format" "unix" source-inplace)
+ :error-patterns
+  ((warning line-start (file-name) ":" line ":" column ": "
+            (id (one-or-more (not (any " "))))
+            (message (one-or-more not-newline)
+                     (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+            line-end))
+  :modes (text-mode adoc-mode))
+(eval-after-load 'adoc-mode
+  '(add-hook 'adoc-mode-hook #'add-node-modules-path))
+(add-hook 'adoc-mode-hook 'flycheck-mode)
 ;; ================================================
 ;;  Theme
 ;; ================================================

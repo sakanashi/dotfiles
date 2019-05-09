@@ -128,8 +128,16 @@ alias clockout="date -v+8H -v+30M"
 ## nodebrew ##
 if [[ -d ~/.nodebrew ]]; then
     export PATH=$HOME/.nodebrew/current/bin:$PATH
-    #    nodebrew use v0.8
 fi
+
+### pyenv ###
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+[[ -d ~/.pyenv ]] && \
+    export PYENV_ROOT="$HOME/.pyenv" && \
+    export PATH="$PYENV_ROOT/bin:$PATH" && \
+    eval "$(pyenv init -)"
 
 ### ssh-agent ###
 agent="$HOME/.ssh/agent"
