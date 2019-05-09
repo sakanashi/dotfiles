@@ -1,0 +1,30 @@
+#! /bin/bash
+set -eux
+
+ver=25.3
+echo 'Start install emacs-${ver}'
+
+if [ -e ~/.emacs ]; then
+   rm ~/.emacs
+fi
+
+mkdir -p ~/local/src
+cd ~/local/src/
+
+[ -f emacs-${ver}.tar.xz ] && rm emacs-${ver}.tar.xz
+wget http://ftpmirror.gnu.org/emacs/emacs-${ver}.tar.gz
+tar -zxf emacs-${ver}.tar.gz
+
+cd emacs-${ver}/
+./configure --prefix=$HOME/local --with-gnutls=no --with-x-toolkit=no --with-gif=no --with-pop --with-mailutils --without-x --without-ns
+make
+make install
+
+echo 'Succeeded.'
+
+# after step
+# 1. path
+# export PATH=$HOME/local/bin:$PATH
+# export PATH=$PATH:$HOME/.cask/bin
+# source ~/.zshrc
+# 2. install cask 
