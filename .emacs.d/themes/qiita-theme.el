@@ -154,7 +154,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(header-line ((t (:foreground ,yellow
                                   :background ,bg-1
                                   :box (:line-width -1 :style released-button)))))
-   `(highlight ((t (:background ,bg-05))))
+   `(highlight ((t (:background , bg-05))))
    `(success ((t (:foreground ,green :weight bold))))
    `(warning ((t (:foreground ,orange :weight bold))))
    `(tooltip ((t (:foreground ,fg :background ,bg+1))))
@@ -167,7 +167,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(compilation-info ((t (:foreground ,green+4 :underline t))))
    `(compilation-leave-directory-face ((t (:foreground ,green))))
    `(compilation-line-face ((t (:foreground ,yellow))))
-   `(compilation-line-number ((t (:foreground ,yellow))))
+   `(compilation-line-number ((t (:foreground ,green))))
    `(compilation-message-face ((t (:foreground ,blue))))
    `(compilation-warning-face ((t (:foreground ,orange :weight bold :underline t))))
    `(compilation-mode-line-exit ((t (:foreground ,green+2 :weight bold))))
@@ -236,7 +236,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(c-annotation-face ((t (:inherit font-lock-constant-face))))
 ;;;;; line numbers (Emacs 26.1 and above)
    `(line-number ((t (:foreground ,fg-1 :background ,bg-05))))
-   `(line-number-current-line ((t (:inherit line-number :foreground ,yellow-2))))
+   `(line-number-current-line ((t (:inherit line-number :foreground ,green-2))))
 ;;;;; man
    '(Man-overstrike ((t (:inherit font-lock-keyword-face))))
    '(Man-underline  ((t (:inherit (font-lock-string-face underline)))))
