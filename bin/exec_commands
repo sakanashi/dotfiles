@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# command list
+COMMANDS=$(cat <<'EOF'
+EOF
+)
+
+exec_command () {
+    echo '#######################################'
+    echo 'Command:'
+    echo "  ${cmd}"
+    echo '---------------------------------------'
+    $cmd
+    echo ''
+}
+
+while read line
+do
+    cmd=$line
+    exec_command
+done <<EOF
+$COMMANDS
+EOF
