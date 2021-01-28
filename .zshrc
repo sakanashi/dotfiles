@@ -1,3 +1,7 @@
+if [[ -d ~/.zsh/completion  ]]; then
+    fpath=(~/.zsh/completion $fpath)
+fi
+
 autoload -U compinit
 compinit
 autoload -Uz colors

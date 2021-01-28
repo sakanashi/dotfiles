@@ -21,6 +21,11 @@
 ;; (initchart-record-execution-time-of load file)
 ;; (initchart-record-execution-time-of require feature)
 
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
 ;; ==================================================
 ;; Theme
 ;; ==================================================
@@ -59,7 +64,8 @@
 ;; バッファの操作に関する設定
 (setq x-select-enable-clipboard t)
 ;; C-x 3 で自動的にfollow-modeにする
-(global-set-key "\C-x3" 'follow-delete-other-windows-and-split)
+;; (global-set-key "\C-x3" 'follow-delete-other-windows-and-split)
+
 ;; auto insert pair bracket
 (electric-pair-mode 1)
 
@@ -123,10 +129,23 @@
 ;; show only double-byte spaces
 (setq whitespace-space-regexp "\\(\u3000+\\)")
 
-;; auto cleanup before save
-(setq whitespace-action '(auto-cleanup))
 
-(global-whitespace-mode 1)
+;; ;; pangu-spaceing
+;; ;;http://rubikitch.com/tag/packagepangu-spacing/
+;;   ;;; chinse-two-byte→japaneseに置き換えるだけで日本語でも使える
+;; (setq pangu-spacing-chinese-before-english-regexp
+;;       (rx (group-n 1 (category japanese))
+;;           (group-n 2 (in "a-zA-Z0-9"))))
+;; (setq pangu-spacing-chinese-after-english-regexp
+;;       (rx (group-n 1 (in "a-zA-Z0-9"))
+;;           (group-n 2 (category japanese))))
+;;   ;;; 見た目ではなくて実際にスペースを入れる
+;; (setq pangu-spacing-real-insert-separtor t)
+;; ;; text-modeやその派生モード(org-mode等)のみに使いたいならこれ
+;; (add-hook 'text-mode-hook 'pangu-spacing-mode)
+;; ;; すべてのメジャーモードに使ってみたい人はこれを
+;; ;; (global-pangu-spacing-mode 1)
+;; ;
 
 (defvar my/bg-color "#4f4f4f")
 (set-face-attribute 'whitespace-trailing nil
@@ -166,10 +185,10 @@
   )
 
 ;; avy
-;; (global-set-key (kbd "M-j") 'avy-goto-word-1)
+(global-set-key (kbd "M-j") 'avy-goto-word-1)
 ;; (global-set-key (kbd "C-M-j") 'avy-goto-char)
 (global-set-key (kbd "M-g M-g") 'avy-goto-line)
-(global-set-key (kbd "M-g M-c") 'avy-goto-char-timer)
+;; (global-set-key (kbd "M-g M-c") 'avy-goto-char-timer)
 (setq avy-background t)
 
 ;; dumb-jump
@@ -277,6 +296,10 @@
 ;;                               (string= web-mode-cur-language "jsx"))
 ;;                           (unless tern-mode (tern-mode))
 ;;                         (if tern-mode (tern-mode -1)))))))
+
+(require 'lsp-mode)
+(add-hook 'enh-ruby-mode-hook #'lsp)
+;; (add-hook 'web-mode-hook #'lsp)
 
 ;; ==================================================
 ;; undo
@@ -511,6 +534,14 @@
 (eval-after-load 'adoc-mode
   '(add-hook 'adoc-mode-hook #'add-node-modules-path))
 (add-hook 'adoc-mode-hook 'flycheck-mode)
+;(add-hook 'adoc-mode-hook 'pangu-spacing-mode)
+
+;; auto cleanup before save
+(setq whitespace-action '(auto-cleanup))
+
+(global-whitespace-mode 1)
+
+
 ;; ================================================
 ;;  Theme
 ;; ================================================
