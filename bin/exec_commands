@@ -1,25 +1,71 @@
 #!/usr/bin/env bash
 
+# COMMANDS に書いたコマンド群を順次実行して何番目まで実行してくれたかを標準出力に出してくれるだけのスクリプト
+# $ ./exec_commands
+# 
+# COMMAND LIST:
+# [1/2]
+#   echo hello
+# [2/2]
+#   id -u
+# 
+# #######################################
+# [1/2] Command:
+#   echo hello
+# ---------------------------------------
+# hello
+# ---------------------------------------
+# [1/2] COMMAND_FINISHED: echo hello
+# 
+# #######################################
+# [2/2] Command:
+#   id -u
+# ---------------------------------------
+# 1037
+# ---------------------------------------
+# [2/2] COMMAND_FINISHED: id -u
+#
+
 set -eu
 
 # command list
 COMMANDS=$(cat <<'EOF'
+echo hello
+id -u
 EOF
 )
 
 exec_command () {
-    echo '#######################################'
-    echo 'Command:'
+    echo -e '\n#######################################'
+    echo "[${count}/${NUM_OF_COMMANDS}] Command:"
     echo "  ${cmd}"
     echo '---------------------------------------'
     $cmd
-    echo ''
+    echo '---------------------------------------'
+    echo -e "[${count}/${NUM_OF_COMMANDS}] COMMAND_FINISHED: ${cmd}"
 }
 
+NUM_OF_COMMANDS=$(cat <<EOF | wc -l
+  $COMMANDS
+EOF
+)
+
+echo 'COMMAND LIST:'
+count=1
+while read line
+do
+    echo -e "[${count}/${NUM_OF_COMMANDS}]\n  ${line}"
+    let count++
+done <<EOF
+$COMMANDS
+EOF
+
+count=1
 while read line
 do
     cmd=$line
     exec_command
+    let count++
 done <<EOF
 $COMMANDS
 EOF
