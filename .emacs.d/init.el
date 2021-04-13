@@ -69,6 +69,14 @@
 ;; auto insert pair bracket
 (electric-pair-mode 1)
 
+;; show indent vertical line
+;; (require 'indent-guide)
+;; (indent-guide-global-mode)
+(add-to-list 'load-path "~/.emacs.d/site-lisp/Highlight-Indentation-for-Emacs")
+(require 'highlight-indentation)
+;; (highlight-indentation-mode)
+(highlight-indentation-mode)
+
 ;; color
 ;; (require 'kurecolor)
 ;; (use-package kurecolor
@@ -98,6 +106,9 @@
 (setq-default indent-tabs-mode nil)
 (require 'smart-tab)
 (setq smart-tab-using-hippie-expand t)
+
+;; do not aut indent
+(electric-indent-mode 0)
 
 ;; ==================================================
 ;; which-key
@@ -297,8 +308,8 @@
 ;;                           (unless tern-mode (tern-mode))
 ;;                         (if tern-mode (tern-mode -1)))))))
 
-(require 'lsp-mode)
-(add-hook 'enh-ruby-mode-hook #'lsp)
+;; (require 'lsp-mode)
+;; (add-hook 'enh-ruby-mode-hook #'lsp)
 ;; (add-hook 'web-mode-hook #'lsp)
 
 ;; ==================================================
@@ -383,19 +394,30 @@
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.liquid$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.dig$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.dig.erb$" . yaml-mode))
 (add-hook 'yaml-mode-hook
           '(lambda () (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+(use-package groovy-mode
+  :ensure t
+  :init
+    (setq groovy-indent-offset 2)
+    (add-hook 'groovy-mode-hook #'lsp))
+
+;; ------ groovy-mode -----
+(provide 'init-groovy)
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
 
 ;; ----- ruby-mode ------
 (autoload 'enh-ruby-mode "enh-ruby-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb.erb$" . enh-ruby-mode))
 ;; robe-mode with company-mode https://qiita.com/kod314/items/9a56983f0d70f57420b1
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (autoload 'robe-mode "robe" "Code navigation, documentation lookup and completion for Ruby" t nil)
 (eval-after-load 'company
   '(push 'company-robe company-backends))
+(setq enh-ruby-add-encoding-comment-on-save nil)
 
 (add-hook 'enh-ruby-mode-hook (lambda()
       (company-mode)
@@ -552,4 +574,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (kurecolor hexrgb zenburn-theme yasnippet yaml-mode web-mode use-package tss tide solarized-theme smex smartparens smart-mode-line scss-mode sass-mode ruby-end ruby-electric robe projectile prodigy prettier-js powerline popwin pallet nyan-mode multiple-cursors moe-theme js2-mode idle-highlight-mode htmlize highlight-symbol groovy-mode gitignore-mode gitconfig-mode git-gutter flycheck-cask expand-region exec-path-from-shell dumb-jump drag-stuff dockerfile-mode cyberpunk-theme company-web color-theme coffee-mode avy anzu adoc-mode))))
+    (csv-mode kurecolor hexrgb zenburn-theme yasnippet yaml-mode web-mode use-package tss tide solarized-theme smex smartparens smart-mode-line scss-mode sass-mode ruby-end ruby-electric robe projectile prodigy prettier-js powerline popwin pallet nyan-mode multiple-cursors moe-theme js2-mode idle-highlight-mode htmlize highlight-symbol groovy-mode gitignore-mode gitconfig-mode git-gutter flycheck-cask expand-region exec-path-from-shell dumb-jump drag-stuff dockerfile-mode cyberpunk-theme company-web color-theme coffee-mode avy anzu adoc-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
