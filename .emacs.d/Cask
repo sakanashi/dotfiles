@@ -70,7 +70,7 @@
 (depends-on "js2-mode")
 (depends-on "json-mode")
 (depends-on "less-css-mode")
-; (depends-on "lsp-mode")
+(depends-on "lsp-mode")
 (depends-on "markdown-mode")
 (depends-on "matlab-mode")
 (depends-on "nyan-mode")

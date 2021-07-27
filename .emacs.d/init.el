@@ -1,4 +1,5 @@
-(package-initialize)
+;;; package --- Summary
+(setq warning-suppress-log-types '((package reinitialization)))
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
@@ -39,6 +40,7 @@
 ;; line-number
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode)
+  (column-number-mode t)
   )
 (when (version<= emacs-version "26.0.50" )
   (global-linum-mode t)
@@ -103,12 +105,14 @@
 (setq c-default-style '((java-mode . "java") (other . "linux")))
 
 ;; not use tab for indent
-(setq-default indent-tabs-mode nil)
+;; (setq-default indent-tabs-mode nil)
+(setq-default tab-width 2 indent-tabs-mode nil)
+(setq c-basic-offset 2)
 (require 'smart-tab)
 (setq smart-tab-using-hippie-expand t)
 
 ;; do not aut indent
-(electric-indent-mode 0)
+;; (electric-indent-mode 0)
 
 ;; ==================================================
 ;; which-key
@@ -397,16 +401,23 @@
 (add-to-list 'auto-mode-alist '("\\.dig.erb$" . yaml-mode))
 (add-hook 'yaml-mode-hook
           '(lambda () (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
+;; ------ groovy-mode -----
 (use-package groovy-mode
   :ensure t
   :init
     (setq groovy-indent-offset 2)
-    (add-hook 'groovy-mode-hook #'lsp))
-
-;; ------ groovy-mode -----
+    ;; (add-hook 'groovy-mode-hook #'lsp)
+    )
 (provide 'init-groovy)
 (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 (add-to-list 'auto-mode-alist '("build.gradle". groovy-mode))
+
+;; ----- json-mode ------
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq js-indent-level 2)))
 
 ;; ----- ruby-mode ------
 (autoload 'enh-ruby-mode "enh-ruby-mode" nil t)
@@ -444,6 +455,7 @@
             '(lambda ()
                (setq whitespace-action '(nil))
                )))
+
 ;; ----- adoc-mode -----
 (autoload 'adoc-mode "adoc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . adoc-mode))
@@ -517,6 +529,7 @@
                (setq my-js-mode-indent-num 2)
                (setq js2-basic-offset my-js-mode-indent-num)
                (setq js-switch-indent-offset my-js-mode-indent-num)
+               (setq js-indent-level my-js-mode-indent-num)
                '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
                (flycheck-select-checker 'javascript-eslint)
 ;               (flycheck-mode t)

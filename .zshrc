@@ -15,6 +15,7 @@ export EDITOR="env TERM=xterm-256color emacsclient -t"
 # export GREP_OPTIONS="--binary-files=without-match --color=auto"
 export PATH=$HOME/local/bin:$PATH
 export PATH=$PATH:$HOME/.cask/bin
+export PATH=/usr/local/sbin:$PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 # export PATH=$HOME/local/bin/gradle-2.14.1/bin:$PATH
 # export PATH=$HOME/.rbenv/shims:$PATH
@@ -120,14 +121,24 @@ alias less='less -qR'
 alias gg='git grep -n --break  --color=auto'
 alias tree='tree -N'
 alias clockout="date -v+8H -v+30M"
-# if [[ -x `which colordiff` ]]; then
-#       alias diff='colordiff'
-# fi
+# alias brew="env PATH=PATH/\/\/${whoami}\/\.pyenv\/shims:/ brew"
+# alias brew="env PATH=${PATH/~\/\.pyenv\/shims:/} brew"
+
+if [[ -x `which colordiff` ]]; then
+      alias diff='colordiff'
+fi
+if [[ -x `which gsed` ]]; then
+      alias sed='gsed'
+fi
 
 ### rbenv ###
 [[ -d ~/.rbenv  ]] && \
     export PATH=${HOME}/.rbenv/bin:${PATH} && \
     eval "$(rbenv init -)"
+
+### java ###
+[[ -d /usr/local/opt/openjdk/bin ]] && \
+    export PATH=/usr/local/opt/openjdk/bin:${PATH}
 
 ## nodebrew ##
 if [[ -d ~/.nodebrew ]]; then
@@ -155,3 +166,18 @@ elif [ -S $agent ]; then
 else
     echo "no ssh-agent"
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ryutarosakanashi/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ryutarosakanashi/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ryutarosakanashi/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ryutarosakanashi/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
